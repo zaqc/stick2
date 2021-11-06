@@ -110,14 +110,11 @@ module phy_channel(
 			wr_flag <= 1'b0;
 			data_ready <= 1'b0;
 			flip_half <= 1'b0;
-			half_for_read <= 1'b0;
 			for(i = 3'd0; ~|{i}; i = i + 1'd1)
 				data_count[i] <= 8'd0;
 		end
 		else
-			if(i_sync) begin
-				half_for_read <= flip_half;
-				
+			if(i_sync) begin				
 				for(i = 3'd0; i < 3'd4; i = i + 1'd1)
 					data_count[{~flip_half, i[1:0]}] <= 8'd0;
 					

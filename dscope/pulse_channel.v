@@ -43,14 +43,7 @@ module pulse_channel(
 								PS_HUSHING = 2'd2;
 								
 	reg			[1:0]			pulse_state;	// Pulse State (Pulsing or Hushing)
-	always @ (posedge hi_clk or negedge rst_n)
-		if(~rst_n)
-			pulse_state <= PS_NONE;
-		else
-			if(sync_pulse)
-				pulse_state <= |{i_pulse_count} ? PS_HITTING : PS_NONE;
-				
-			
+							
 	wire		[2:0]			next_znd_state;
 	wire		[7:0]			next_znd_len;
 
@@ -80,7 +73,7 @@ module pulse_channel(
 		end
 		else
 			if(sync_pulse) begin
-				pulse_state <= PS_HITTING;
+				pulse_state <= |{i_pulse_count} ? PS_HITTING : PS_NONE;
 				pulse_count <= 4'd0;
 				znd_state <= ZS_HI;
 				znd_cntr <= 8'd0;
