@@ -1,0 +1,171 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri Nov  5 10:23:05 2021
+[*]
+[dumpfile] "/home/zaqc/work/altera/stick_2.0/dscope/dumpfile_dscope.vcd"
+[dumpfile_mtime] "Fri Nov  5 10:22:40 2021"
+[dumpfile_size] 24048041
+[savefile] "/home/zaqc/work/altera/stick_2.0/dscope/cfg_dscope.gtkw"
+[timestart] 264347000
+[size] 3373 1385
+[pos] 200 20
+*-17.776672 265065500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] dscope_tb.
+[treeopen] dscope_tb.dscope_main_unit.
+[treeopen] dscope_tb.dscope_main_unit.phy_channel_u0.
+[treeopen] dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.
+[sst_width] 223
+[signals_width] 285
+[sst_expanded] 1
+[sst_vpaned_height] 336
+@200
+-Data Align
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.rst_n
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.clk
+@22
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.data_align_unit.i_data[7:0]
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.data_align_unit.i_wren
+@22
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.data_align_unit.o_out_data[31:0]
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.data_align_unit.o_out_vld
+@200
+-
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.ch_mem_buf_unit.wren
+@22
+dscope_tb.dscope_main_unit.phy_channel_u0.ch_mem_buf_unit.wraddress[10:0]
+dscope_tb.dscope_main_unit.phy_channel_u0.ch_mem_buf_unit.wrdata[31:0]
+dscope_tb.dscope_main_unit.phy_channel_u0.wr_addr[10:0]
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.flip_half
+dscope_tb.dscope_main_unit.phy_channel_u0.i_wr_vchn[1:0]
+dscope_tb.dscope_main_unit.phy_channel_u0.i_slot_sync
+@200
+-ADC Data
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.rst_n
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.clk
+@22
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.i_adc_data[7:0]
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.i_ratio[7:0]
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.i_complite
+@22
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.r_cntr[7:0]
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.run
+dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.i_sync
+@200
+-
+-Pulser
+@28
+dscope_tb.dscope_main_unit.pulse_channel_u0.i_sync
+dscope_tb.dscope_main_unit.pulse_channel_u0.hi_clk
+dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_hi
+dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_lo_n
+dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_gnd
+dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_gnd_n
+@200
+-
+-Phy Channel
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.rst_n
+dscope_tb.dscope_main_unit.phy_channel_u0.i_sync
+dscope_tb.dscope_main_unit.phy_channel_u0.i_slot_sync
+@22
+dscope_tb.dscope_main_unit.phy_channel_u0.i_data_len[7:0]
+dscope_tb.dscope_main_unit.phy_channel_u0.wr_addr[10:0]
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.wr_flag
+dscope_tb.dscope_main_unit.phy_channel_u0.out_adc_vld
+@22
+dscope_tb.dscope_main_unit.phy_channel_u0.out_adc_data[31:0]
+@28
+dscope_tb.dscope_main_unit.phy_channel_u0.i_complite
+@200
+-
+@22
+dscope_tb.dscope_main_unit.o_phase_ax[3:0]
+dscope_tb.dscope_main_unit.o_phase_bx[3:0]
+dscope_tb.dscope_main_unit.o_phase_cx[3:0]
+@23
+dscope_tb.dscope_main_unit.o_phase_dx[3:0]
+@200
+-
+-Data Reader
+@28
+dscope_tb.dscope_main_unit.data_reader_unit.clk
+@22
+dscope_tb.dscope_main_unit.data_reader_unit.i_cntr[7:0]
+@28
+dscope_tb.dscope_main_unit.data_reader_unit.ch_info
+dscope_tb.dscope_main_unit.data_reader_unit.read_ws
+dscope_tb.dscope_main_unit.data_reader_unit.rd_flag
+@22
+dscope_tb.dscope_main_unit.data_reader_unit.data_len[9:0]
+dscope_tb.dscope_main_unit.data_reader_unit.rd_channel[3:0]
+@28
+dscope_tb.dscope_main_unit.data_reader_unit.o_out_vld
+@22
+dscope_tb.dscope_main_unit.data_reader_unit.o_rd_addr_0[9:0]
+@c00022
+dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+@28
+(0)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(1)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(2)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(3)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(4)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(5)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(6)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(7)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(8)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(9)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(10)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(11)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(12)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(13)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(14)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(15)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(16)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(17)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(18)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(19)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(20)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(21)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(22)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(23)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(24)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(25)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(26)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(27)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(28)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(29)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(30)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+(31)dscope_tb.dscope_main_unit.data_reader_unit.o_out_data[31:0]
+@1401200
+-group_end
+@28
+dscope_tb.dscope_main_unit.data_reader_unit.i_out_rdy
+@22
+dscope_tb.dscope_main_unit.data_count_0[7:0]
+dscope_tb.dscope_main_unit.data_count_1[7:0]
+dscope_tb.dscope_main_unit.data_count_2[7:0]
+dscope_tb.dscope_main_unit.data_count_3[7:0]
+dscope_tb.dscope_main_unit.ts_time_0[15:0]
+dscope_tb.dscope_main_unit.ts_time_1[15:0]
+dscope_tb.dscope_main_unit.ts_time_2[15:0]
+dscope_tb.dscope_main_unit.ts_time_3[15:0]
+dscope_tb.dscope_main_unit.adc_tick_0[7:0]
+dscope_tb.dscope_main_unit.adc_tick_1[7:0]
+dscope_tb.dscope_main_unit.adc_tick_2[7:0]
+dscope_tb.dscope_main_unit.adc_tick_3[7:0]
+dscope_tb.dscope_main_unit.out_size_0[15:0]
+dscope_tb.dscope_main_unit.out_size_1[15:0]
+dscope_tb.dscope_main_unit.out_size_2[15:0]
+dscope_tb.dscope_main_unit.out_size_3[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

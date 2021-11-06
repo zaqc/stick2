@@ -1,0 +1,54 @@
+channel config
+
+Parameter for Virtual Channel [0..15]
+
+1. Pulse Diagram [0..VirtualChannelCount]
+	1.1 Hit width [0..0xFF] - default 100
+	1.2 Gnd width [0..0xFF] - default 100
+	1.3 Pulse Count [0..0x0F] - default 4
+	1.4 Time Slot [0..3]
+	
+2. ADC Param [0..PHY_ChanneCount]
+	1.1 Start Address [0..0xFFFF]
+	1.2 Data Length [0..0xFF] x 4 (by 32bit words) (0 - no data from channel)
+	1.2 Accum Tick Count [0..0xFF]
+	1.3 Time Slot [0..3]
+	1.4 Input Pin Selector [0..3] (low nibble of Channel Number)
+
+
+mclk_x - Clock for ADC & DAC (output)
+nenz_*x - SubChannel Pulse enable (output)
+en_*x - SubChannel Input Selector Swich TS12A44514PWR (output)
+pase_ax, phase_cx, phase_dx, phase_ex - Pulse Output Pin (output)
+doffs_x - DAC Data Pin (spi output)
+soffs_nx - DAC Sync Pin (spi output)
+
+d_*x - ADC Data
+
+PreSwichTime = 8'd10	// uSec
+
+slot_0_time = 10'd180	// uSec
+slot_1_time = 10'd160
+slot_2_time = 10'd160
+slot_3_time = 10'd100
+
+slot_0_pulse = 16'h1111	// pulse mask
+slot_1_pulse = 16'h2222
+slot_2_pulse = 16'h4444
+slot_3_pulse = 16'h8888
+
+slot_0_adc = 16'h1111	// ADC mask
+slot_1_adc = 16'h2222
+slot_2_adc = 16'h4444
+slot_3_adc = 16'h8888
+
+Channels [0..3] for Slot [0..3] {
+	pulse_hit = 8'd100
+	pulse_gnd = 8'd100
+	pulse_count = 4'h4
+	hush_count = 12'h00F (pulse_gnd time (default 100 nSec) 1,6 uSec)
+	
+	adc_tick_count = 256
+	adc_ratio = 14
+}
+
