@@ -49,10 +49,10 @@ module phy_channel(
 	always @ (posedge clk or negedge rst_n)
 		if(~rst_n) begin
 			half_for_read <= 1'b0;
-			data_count_0 <= 10'd0;
-			data_count_1 <= 10'd0;
-			data_count_2 <= 10'd0;
-			data_count_3 <= 10'd0;
+			data_count_0 <= 8'd0;
+			data_count_1 <= 8'd0;
+			data_count_2 <= 8'd0;
+			data_count_3 <= 8'd0;
 			out_size <= 16'd0;
 		end
 		else			

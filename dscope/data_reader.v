@@ -101,7 +101,7 @@ module data_reader(
 							
 							if(&{rd_channel})  begin
 								rd_flag <= 1'b0;
-								rd_channel <= 16'd0;
+								rd_channel <= 4'd0;
 							end
 							else begin
 								rd_channel <= rd_channel + 1'd1;

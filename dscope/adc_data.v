@@ -31,7 +31,7 @@ module adc_data(
 			if(i_sync) begin
 				adc_data <= i_adc_data;
 				r_cntr <= 8'd0;
-				out_vld <= 10'd0;
+				out_vld <= 1'd0;
 				run <= 1'b1;
 			end			
 			else

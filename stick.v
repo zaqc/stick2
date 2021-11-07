@@ -108,6 +108,7 @@ module stick(
 	
 	inout 						mdio_1x;
 	output 						mdc_1x;
+	
 	output 						nrst_1x;
 	
 	// phy 2 interface head connection
@@ -125,6 +126,7 @@ module stick(
 	
 	inout 						mdio_2x;
 	output 						mdc_2x;
+	
 	output 						nrst_2x;
 	
 	// com ports
@@ -230,31 +232,78 @@ module stick(
 		.o_rx_rdy(rx_rdy)
 	);
 	
+	wire						mdio_in_phy_1;
+	wire						mdio_out_phy_1;
+	wire						mdio_oen_phy_1;
+
+	assign mdio_in_phy_1 = mdio_1x;
+	assign mdio_1x = mdio_oen_phy_1 ? 1'bZ : mdio_out_phy_1;
+	
 	mac mac_unit_0(
 		.reset(~rst_n),
 		.clk(sys_clk),
 		
+		.address(phy_ctr_addr_1),
+		.readdata(phy_ctr_rd_data_1),
+		.read(phy_ctr_rd_1),
+		.writedata(phy_ctr_wr_data_1),
+		.write(phy_ctr_wr_1),
+		.waitrequest(phy_ctr_waitreqest_1),
+		
+		.set_10(1'b0),
+		.set_1000(1'b0),
+		
+		.rx_clk(rxclk_1x),
 		.m_rx_d(rxd_1x),
 		.m_rx_en(rxdv_1x),
 		.m_rx_err(rxer_1x),
 		.m_rx_crs(crs_1x),
 		.m_rx_col(col_1x),
 		
+		.tx_clk(txclk_1x),
 		.m_tx_d(txd_1x),
 		.m_tx_en(txen_1x),
 		.m_tx_err(txer_1x),
 		
+		.mdc(mdc_1x),
+		.mdio_in(mdio_in_phy_1),
+		.mdio_out(mdio_out_phy_1),
+		.mdio_oen(mdio_oen_phy_1),
+		
+		.ff_tx_clk(sys_clk),
 		.ff_tx_data(tx_data),
 		.ff_tx_wren(tx_vld),
 		.ff_tx_sop(tx_sop),
 		.ff_tx_eop(tx_eop),
 		.ff_tx_mod(2'd0),
 		
+		.ff_rx_clk(sys_clk),
 		.ff_rx_data(rx_data),
 		.ff_rx_dval(rx_vld),
 		.ff_rx_sop(rx_sop),
 		.ff_rx_eop(rx_eop),
 		.ff_rx_rdy(rx_rdy)
 	);
+	
+	wire		[7:0]			phy_ctr_addr_1;
+	wire		[31:0]			phy_ctr_wr_data_1;
+	wire						phy_ctr_wr_1;
+	wire		[31:0]			phy_ctr_rd_data_1;
+	wire						phy_ctr_rd_1;
+	wire						phy_ctr_waitreqest_1;
+
+	init_phy init_phy_unit_1(
+		.clk(sys_clk),
+		.rst_n(rst_n),
+
+		.o_phy_ctr_addr(phy_ctr_addr_1),
+		.o_phy_ctr_wr_data(phy_ctr_wr_data_1),
+		.o_phy_ctr_wr(phy_ctr_wr_1),
+		.i_phy_ctr_rd_data(phy_ctr_rd_data_1),
+		.o_phy_ctr_rd(phy_ctr_rd_1),
+		
+		.i_phy_ctr_waitreqest(phy_ctr_waitreqest_1)
+	);
+
 
 endmodule

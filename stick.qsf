@@ -233,6 +233,8 @@ set_location_assignment PIN_AA1 -to txer_1x
 set_location_assignment PIN_P4 -to txer_2x
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name VERILOG_FILE init_phy.v
 set_global_assignment -name SDC_FILE stick.sdc
 set_global_assignment -name QIP_FILE eth/eth_tx_fifo.qip
 set_global_assignment -name VERILOG_FILE stick_main.v
@@ -264,5 +266,5 @@ set_global_assignment -name QIP_FILE main_pll.qip
 set_global_assignment -name QIP_FILE mac.qip
 set_global_assignment -name SIP_FILE mac.sip
 set_global_assignment -name QIP_FILE ch_ram.qip
-set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name VECTOR_WAVEFORM_FILE main_tb.vwf
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

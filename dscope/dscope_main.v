@@ -160,9 +160,7 @@ module dscope_main(
 		
 		.o_complite(complite)
 	);
-	
-	assign o_complite = complite;
-		
+			
 	pulse_channel pulse_channel_u0(
 		.rst_n(rst_n),
 		.hi_clk(hi_clk),

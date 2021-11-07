@@ -97,7 +97,7 @@ module control_param(
 			end
 			`else
 			for(i = 5'd0; i < 5'd16; i = i + 1'd1) begin
-				pulse_mask[i] <= 1'd1 << i[1:0];
+				pulse_mask[i] <= 4'd1 << i[1:0];
 				pulse_hit[i] <= i == 5'd15 ? 8'd20 : 8'd100;
 				pulse_gnd[i] <= i == 5'd15 ? 8'd180 : 8'd100;
 				pulse_count[i] <= i == 5'd15 ? 4'd1 : 4'd4;
@@ -115,44 +115,53 @@ module control_param(
 	assign o_ts_time_2 = ts_time_2;
 	assign o_ts_time_3 = ts_time_3;
 	
-	assign o_pulse_mask_0 = pulse_mask[{2'd0, i_slot}];
-	assign o_pulse_mask_1 = pulse_mask[{2'd1, i_slot}];
-	assign o_pulse_mask_2 = pulse_mask[{2'd2, i_slot}];
-	assign o_pulse_mask_3 = pulse_mask[{2'd3, i_slot}];
+	wire		[3:0]			slot_0;
+	assign slot_0 = {2'd0, i_slot};
+	wire		[3:0]			slot_1;
+	assign slot_1 = {2'd1, i_slot};
+	wire		[3:0]			slot_2;
+	assign slot_2 = {2'd2, i_slot};
+	wire		[3:0]			slot_3;
+	assign slot_3 = {2'd3, i_slot};
+	
+	assign o_pulse_mask_0 = pulse_mask[slot_0];
+	assign o_pulse_mask_1 = pulse_mask[slot_1];
+	assign o_pulse_mask_2 = pulse_mask[slot_2];
+	assign o_pulse_mask_3 = pulse_mask[slot_3];
 		
-	assign o_pulse_hit_0 = pulse_hit[{2'd0, i_slot}];
-	assign o_pulse_hit_1 = pulse_hit[{2'd1, i_slot}];
-	assign o_pulse_hit_2 = pulse_hit[{2'd2, i_slot}];
-	assign o_pulse_hit_3 = pulse_hit[{2'd3, i_slot}];
+	assign o_pulse_hit_0 = pulse_hit[slot_0];
+	assign o_pulse_hit_1 = pulse_hit[slot_1];
+	assign o_pulse_hit_2 = pulse_hit[slot_2];
+	assign o_pulse_hit_3 = pulse_hit[slot_3];
 	
-	assign o_pulse_gnd_0 = pulse_gnd[{2'd0, i_slot}];
-	assign o_pulse_gnd_1 = pulse_gnd[{2'd1, i_slot}];
-	assign o_pulse_gnd_2 = pulse_gnd[{2'd2, i_slot}];
-	assign o_pulse_gnd_3 = pulse_gnd[{2'd3, i_slot}];
+	assign o_pulse_gnd_0 = pulse_gnd[slot_0];
+	assign o_pulse_gnd_1 = pulse_gnd[slot_1];
+	assign o_pulse_gnd_2 = pulse_gnd[slot_2];
+	assign o_pulse_gnd_3 = pulse_gnd[slot_3];
 	
-	assign o_pulse_count_0 = pulse_count[{2'd0, i_slot}];
-	assign o_pulse_count_1 = pulse_count[{2'd1, i_slot}];
-	assign o_pulse_count_2 = pulse_count[{2'd2, i_slot}];
-	assign o_pulse_count_3 = pulse_count[{2'd3, i_slot}];
+	assign o_pulse_count_0 = pulse_count[slot_0];
+	assign o_pulse_count_1 = pulse_count[slot_1];
+	assign o_pulse_count_2 = pulse_count[slot_2];
+	assign o_pulse_count_3 = pulse_count[slot_3];
 	
-	assign o_pulse_hush_0 = pulse_hush[{2'd0, i_slot}];
-	assign o_pulse_hush_1 = pulse_hush[{2'd0, i_slot}];
-	assign o_pulse_hush_2 = pulse_hush[{2'd0, i_slot}];
-	assign o_pulse_hush_3 = pulse_hush[{2'd0, i_slot}];
+	assign o_pulse_hush_0 = pulse_hush[slot_0];
+	assign o_pulse_hush_1 = pulse_hush[slot_1];
+	assign o_pulse_hush_2 = pulse_hush[slot_2];
+	assign o_pulse_hush_3 = pulse_hush[slot_3];
 	
-	assign o_adc_vchn_0 = adc_vchn[{2'd0, i_slot}];
-	assign o_adc_vchn_1 = adc_vchn[{2'd1, i_slot}];
-	assign o_adc_vchn_2 = adc_vchn[{2'd2, i_slot}];
-	assign o_adc_vchn_3 = adc_vchn[{2'd3, i_slot}];
+	assign o_adc_vchn_0 = adc_vchn[slot_0];
+	assign o_adc_vchn_1 = adc_vchn[slot_1];
+	assign o_adc_vchn_2 = adc_vchn[slot_2];
+	assign o_adc_vchn_3 = adc_vchn[slot_3];
 	
-	assign o_adc_tick_0 = adc_tick[{2'd0, i_slot}];
-	assign o_adc_tick_1 = adc_tick[{2'd1, i_slot}];
-	assign o_adc_tick_2 = adc_tick[{2'd2, i_slot}];
-	assign o_adc_tick_3 = adc_tick[{2'd3, i_slot}];
+	assign o_adc_tick_0 = adc_tick[slot_0];
+	assign o_adc_tick_1 = adc_tick[slot_1];
+	assign o_adc_tick_2 = adc_tick[slot_2];
+	assign o_adc_tick_3 = adc_tick[slot_3];
 	
-	assign o_adc_ratio_0 = adc_ratio[{2'd0, i_slot}];
-	assign o_adc_ratio_1 = adc_ratio[{2'd1, i_slot}];
-	assign o_adc_ratio_2 = adc_ratio[{2'd2, i_slot}];
-	assign o_adc_ratio_3 = adc_ratio[{2'd3, i_slot}];
+	assign o_adc_ratio_0 = adc_ratio[slot_0];
+	assign o_adc_ratio_1 = adc_ratio[slot_1];
+	assign o_adc_ratio_2 = adc_ratio[slot_2];
+	assign o_adc_ratio_3 = adc_ratio[slot_3];
 	
 endmodule
