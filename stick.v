@@ -275,6 +275,7 @@ module stick(
 		.ff_tx_wren(tx_vld),
 		.ff_tx_sop(tx_sop),
 		.ff_tx_eop(tx_eop),
+		.ff_tx_rdy(tx_rdy),
 		.ff_tx_mod(2'd0),
 		
 		.ff_rx_clk(sys_clk),
