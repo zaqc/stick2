@@ -4,6 +4,8 @@ module phy_channel(
 	input						rst_n,
 	input						clk,
 	
+	input						sys_clk,
+	
 	input						i_sync,			// Sync for full cycle
 	
 	input						i_slot_sync,	// Sync for each slot
@@ -18,7 +20,6 @@ module phy_channel(
 
 	input						i_complite,		// after full sync cycle
 	
-	input						rd_clk,
 	input		[1:0]			i_rd_vchn,
 	output		[7:0]			o_data_count,
 	output		[31:0]			o_rd_data,
@@ -143,7 +144,7 @@ module phy_channel(
 		.data(out_adc_data),
 		.wren(wr_flag & out_adc_vld),
 		
-		//.rdclock(rd_clk),
+		.rdclock(sys_clk),
 		.rdaddress(rd_addr),
 		.q(o_rd_data)
 	);

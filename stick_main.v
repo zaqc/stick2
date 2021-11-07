@@ -29,7 +29,23 @@ module stick_main(
 	input		[11:0]			i_d_0x,
 	input		[11:0]			i_d_1x,
 	input		[11:0]			i_d_2x,
-	input		[11:0]			i_d_3x
+	input		[11:0]			i_d_3x,
+	
+	output		[31:0]			o_tx_data,	// send to Ethernet
+	output						o_tx_vld,
+	output						o_tx_sop,
+	output						o_tx_eop,
+	input						i_tx_rdy,
+	
+	input		[31:0]			i_rx_data,	// receive from Ethernet
+	input						i_rx_vld,
+	input						i_rx_sop,
+	input						i_rx_eop,
+	output						o_rx_rdy,
+	
+	output		[31:0]			o_out_data,
+	output						o_out_vld,
+	input						i_out_rdy
 );
 
 	wire		[31:0]			frame_data;
@@ -69,7 +85,7 @@ module stick_main(
 		.i_out_rdy(frame_rdy),
 		
 		.o_frame_ready(frame_ready),
-		.o_frame_size(frame_size)
+		.o_frame_size(frame_size)		
 	);
 	
 	packet_sender packet_sender_unit(
@@ -77,13 +93,17 @@ module stick_main(
 		.clk(sys_clk),		
 		.i_sync(frame_ready),
 
-		.i_rx_data(32'd0),
-		.i_rx_sop(1'b0),
-		.i_rx_eop(1'b0),
-		.i_rx_vld(1'b0),
-		//.o_rx_rdy(eth_rdy),
-
-		.i_tx_rdy(1'b1),
+		.i_rx_data(i_rx_data),
+		.i_rx_vld(i_rx_vld),
+		.i_rx_sop(i_rx_sop),
+		.i_rx_eop(i_rx_eop),
+		.o_rx_rdy(o_rx_rdy),
+		
+		.o_tx_data(o_tx_data),
+		.o_tx_vld(o_tx_vld),
+		.o_tx_sop(o_tx_sop),
+		.o_tx_eop(o_tx_eop),
+		.i_tx_rdy(i_tx_rdy),
 		
 		.i_in_data(frame_data),
 		.i_in_vld(frame_vld),

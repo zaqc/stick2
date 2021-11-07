@@ -141,8 +141,75 @@ input [11:0] d_1x;
 input [11:0] d_2x;
 input [11:0] d_3x;
 
+	wire						sys_clk;
+	wire						hi_clk;
+	wire						rst_n;
+	main_pll main_pll_unit(
+		.inclk0(clk),
+		.c0(sys_clk),
+		.c1(hi_clk),
+		.locked(rst_n)
+	);
+	
+	
+	wire		[31:0]			tx_data;
+	wire						tx_vld;
+	wire						tx_sop;
+	wire						tx_eop;
+	wire						tx_rdy;
+	wire		[31:0]			rx_data;
+	wire						rx_vld;
+	wire						rx_sop;
+	wire						rx_eop;
+	wire						rx_rdy;
 	stick_main stick_main_unit(
-		.sys_clk(clk)
+		.rst_n(rst_n),
+		
+		.sys_clk(sys_clk),
+		.hi_clk(hi_clk),
+		
+		.i_sync(sync),
+		
+		.o_phase_ax(phase_ax),
+		.o_phase_bx(phase_bx),
+		.o_phase_cx(phase_cx),
+		.o_phase_dx(phase_dx),
+		
+		.i_d_0x(d_0x),
+		.i_d_1x(d_1x),
+		.i_d_2x(d_2x),
+		.i_d_3x(d_3x),
+		
+		.o_tx_data(tx_data),
+		.o_tx_vld(tx_vld),
+		.o_tx_sop(tx_sop),
+		.o_tx_eop(tx_eop),
+		.i_tx_rdy(tx_rdy),
+		
+		.i_rx_data(rx_data),
+		.i_rx_vld(rx_vld),
+		.i_rx_sop(rx_sop),
+		.i_rx_eop(rx_eop),
+		.o_rx_rdy(rx_rdy)
+	);
+	
+	mac mac_unit_0(
+		.reset(~rst_n),
+		.clk(sys_clk),
+		
+		.m_rx_d(rxd_1x),
+		.m_rx_en(rxdv_1x),
+		.m_rx_err(rxer_1x),
+		
+		.m_tx_d(txd_1x),
+		.m_tx_en(txen_1x),
+		.m_tx_err(txer_1x),
+		
+		.ff_tx_data(tx_data),
+		.ff_tx_wren(tx_vld),
+		.ff_tx_sop(tx_sop),
+		.ff_tx_eop(tx_eop),
+		.ff_tx_mod(2'd0)
 	);
 
 endmodule

@@ -6,10 +6,12 @@ module ch_mem_buf(
 	input		[31:0]			data,
 	input						wren,
 		
+	input						rdclock,
 	input		[10:0]			rdaddress,
 	output		[31:0]			q
 );
 
+	`ifdef TESTMODE
 	reg			[31:0]			mem_buf[0:2047];
 	
 	reg			[31:0]			wrdata;
@@ -21,6 +23,18 @@ module ch_mem_buf(
 		end
 			
 	assign q = mem_buf[rdaddress];
+	`else
+	ch_ram ch_ram_unit(
+		.wrclock(wrclock),
+		.wraddress(wraddress),
+		.data(data),
+		.wren(wren),
+		
+		.rdclock(rdclock),
+		.rdaddress(rdaddress),
+		.q(q)
+	);
+	`endif
 
 endmodule
 

@@ -12,6 +12,7 @@ SRC += $(wildcard $(PROJECT_ROOT)dscope/*.v)
 SRC += $(wildcard $(PROJECT_ROOT)eth/*.v)
 
 SRC := $(patsubst $(PROJECT_ROOT)eth/send_frame_tb.v, , $(SRC))
+SRC := $(patsubst $(PROJECT_ROOT)eth/eth_tx_fifo.v, , $(SRC))
 SRC := $(patsubst $(PROJECT_ROOT)dscope/dscope_tb.v, , $(SRC))
 
 INCLIDE_PATH = $(PROJECT_ROOT)eth/

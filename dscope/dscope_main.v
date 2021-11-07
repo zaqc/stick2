@@ -252,6 +252,8 @@ module dscope_main(
 		.rst_n(rst_n),
 		.clk(adc_clk),
 		
+		.sys_clk(sys_clk),
+		
 		.i_sync(main_sync),
 		.i_slot_sync(slot_sync),
 		
@@ -286,6 +288,8 @@ module dscope_main(
 	phy_channel phy_channel_u1(
 		.rst_n(rst_n),
 		.clk(adc_clk),
+		
+		.sys_clk(sys_clk),
 		
 		.i_sync(main_sync),
 		.i_slot_sync(slot_sync),
@@ -322,6 +326,8 @@ module dscope_main(
 		.rst_n(rst_n),
 		.clk(adc_clk),
 		
+		.sys_clk(sys_clk),
+		
 		.i_sync(main_sync),
 		.i_slot_sync(slot_sync),
 		
@@ -356,6 +362,8 @@ module dscope_main(
 	phy_channel phy_channel_u3(
 		.rst_n(rst_n),
 		.clk(adc_clk),
+		
+		.sys_clk(sys_clk),
 		
 		.i_sync(main_sync),
 		.i_slot_sync(slot_sync),
