@@ -48,7 +48,12 @@ module control_param(
 	output		[7:0]		o_adc_ratio_0,
 	output		[7:0]		o_adc_ratio_1,
 	output		[7:0]		o_adc_ratio_2,
-	output		[7:0]		o_adc_ratio_3
+	output		[7:0]		o_adc_ratio_3,
+	
+	output		[7:0]		o_dac_level_0,
+	output		[7:0]		o_dac_level_1,
+	output		[7:0]		o_dac_level_2,
+	output		[7:0]		o_dac_level_3
 );
 
 	reg			[15:0]		ts_time_0;
@@ -66,6 +71,8 @@ module control_param(
 	reg			[1:0]		adc_vchn[0:15];
 	reg			[7:0]		adc_tick[0:15];
 	reg			[7:0]		adc_ratio[0:15];
+	
+	reg			[7:0]		dac_level[0:15];
 
 	reg		 	[5:0]		i;
 	
@@ -94,6 +101,8 @@ module control_param(
 				adc_vchn[i] <= i[1:0];
 				adc_tick[i] <= 8'd1 + i;//16;
 				adc_ratio[i] <= 8'd4;
+				
+				dac_level[i] <= {i, 3'd0};
 			end
 			`else
 			for(i = 5'd0; i < 5'd16; i = i + 1'd1) begin
@@ -106,6 +115,8 @@ module control_param(
 				adc_vchn[i] <= i[1:0];
 				adc_tick[i] <= 8'd128;
 				adc_ratio[i] <= 8'd8;
+				
+				dac_level[i] <= 8'd80;
 			end
 			`endif
 		end
@@ -163,5 +174,10 @@ module control_param(
 	assign o_adc_ratio_1 = adc_ratio[slot_1];
 	assign o_adc_ratio_2 = adc_ratio[slot_2];
 	assign o_adc_ratio_3 = adc_ratio[slot_3];
+	
+	assign o_dac_level_0 = dac_level[slot_0];
+	assign o_dac_level_1 = dac_level[slot_1];
+	assign o_dac_level_2 = dac_level[slot_2];
+	assign o_dac_level_3 = dac_level[slot_3];
 	
 endmodule

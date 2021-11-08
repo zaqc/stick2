@@ -234,6 +234,8 @@ set_location_assignment PIN_P4 -to txer_2x
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name VERILOG_FILE dscope/spi_dac.v
+set_global_assignment -name VERILOG_FILE dscope/dac_level.v
 set_global_assignment -name VERILOG_FILE init_phy.v
 set_global_assignment -name SDC_FILE stick.sdc
 set_global_assignment -name QIP_FILE eth/eth_tx_fifo.qip
@@ -260,7 +262,6 @@ set_global_assignment -name VERILOG_FILE eth/packet_param.v
 set_global_assignment -name VERILOG_FILE eth/eth_switch_output.v
 set_global_assignment -name VERILOG_FILE eth/eth_pkt_type.v
 set_global_assignment -name VERILOG_FILE eth/eth_parser.v
-set_global_assignment -name VERILOG_FILE spi_dac.v
 set_global_assignment -name VERILOG_FILE stick.v
 set_global_assignment -name QIP_FILE main_pll.qip
 set_global_assignment -name QIP_FILE mac.qip

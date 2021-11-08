@@ -31,7 +31,10 @@ module ping_payload(
 	
 	reg			[15:0]			checksum;
 	
-	assign o_out_data = ~|{rd_ptr} ? {16'd0, checksum} : mem_buf[rd_ptr];
+	wire		[31:0]			mem_data; 
+	assign mem_data = mem_buf[rd_ptr];
+	
+	assign o_out_data = ~|{rd_ptr} ? {8'd0, mem_data[23:16], checksum} : mem_buf[rd_ptr];
 	
 	wire						eop_rise;
 	rise_detector eop_rise_detector(.rst_n(rst_n), .clk(clk), .i_signal(i_eop), .o_rise(eop_rise));
@@ -42,14 +45,14 @@ module ping_payload(
 	always @ (posedge clk) 
 		if(eop_rise) begin
 			payload_size <= wr_ptr + 1'd1;
-			checksum <= ~crc_sum2[15:0];
+			checksum <= ~crc_sum1[15:0];
 		end
 		
 	always @ (posedge clk)
 		if(i_wren) begin
 			if(i_start) begin
 				mem_buf[8'd0] <= i_in_data;
-				crc <= 16'd0; // for debug replase 16'd0 to: crc_a1
+				crc <= {24'd0, crc_a1[7:0]}; // for debug replase 16'd0 to: crc_a1
 				wr_ptr <= 8'd1;
 			end
 			else begin

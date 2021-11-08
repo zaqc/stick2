@@ -268,9 +268,9 @@ module packet_sender_tb;
 		.i_sync(sync),
 		
 		.i_rx_data(eth_data),
-		.i_rx_sop(1'b0),//eth_sp),
-		.i_rx_eop(1'b0),//eth_ep),
-		.i_rx_vld(1'b0),//eth_vld),
+		.i_rx_sop(eth_sp),
+		.i_rx_eop(eth_ep),
+		.i_rx_vld(eth_vld),
 		.o_rx_rdy(eth_rdy),
 		
 		.i_tx_rdy(1'b1),

@@ -1,17 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Nov  5 14:20:09 2021
+[*] Mon Nov  8 16:28:19 2021
 [*]
-[dumpfile] "/home/zaqc/work/altera/stick_2.0/dumpfile_stick.vcd"
-[dumpfile_mtime] "Fri Nov  5 14:19:21 2021"
-[dumpfile_size] 7081561
-[savefile] "/home/zaqc/work/altera/stick_2.0/cfg_stick.gtkw"
-[timestart] 263417000
+[dumpfile] "/home/zaqc/work/altera/stick2/dumpfile_stick.vcd"
+[dumpfile_mtime] "Mon Nov  8 16:27:06 2021"
+[dumpfile_size] 7083820
+[savefile] "/home/zaqc/work/altera/stick2/cfg_stick.gtkw"
+[timestart] 0
 [size] 2199 995
-[pos] 137 255
-*-20.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 973 361
+*-24.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] stick_tb.
 [treeopen] stick_tb.stick_main_unit.
+[treeopen] stick_tb.stick_main_unit.dscope_main_unit.
 [treeopen] stick_tb.stick_main_unit.packet_sender_unit.
 [sst_width] 280
 [signals_width] 233
@@ -34,6 +35,21 @@ stick_tb.stick_main_unit.dscope_main_unit.pulse_channel_u0.o_znd_gnd_n
 stick_tb.stick_main_unit.dscope_main_unit.o_out_data[31:0]
 @28
 stick_tb.stick_main_unit.dscope_main_unit.o_out_vld
+stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_0
+stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_1
+stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_2
+stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_3
+@c00023
+stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
+@28
+(0)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
+(1)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
+(2)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
+(3)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
+@1401201
+-group_end
+@28
+stick_tb.stick_main_unit.dscope_main_unit.o_dac_cs_n
 @200
 -
 -Packet Sender

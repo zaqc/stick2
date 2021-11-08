@@ -34,6 +34,13 @@ module dscope_main(
 	input		[11:0]			i_d_2x,
 	input		[11:0]			i_d_3x,
 	
+	output						o_dac_data_0,
+	output						o_dac_data_1,
+	output						o_dac_data_2,
+	output						o_dac_data_3,
+
+	output						o_dac_cs_n,
+	
 	output		[31:0]			o_out_data,
 	output						o_out_vld,
 	input						i_out_rdy,
@@ -105,6 +112,11 @@ module dscope_main(
 	wire		[3:0]			pulse_mask_2;
 	wire		[3:0]			pulse_mask_3;
 	
+	wire		[7:0]			dac_level_0;
+	wire		[7:0]			dac_level_1;
+	wire		[7:0]			dac_level_2;
+	wire		[7:0]			dac_level_3;
+	
 	control_param control_param_unit(
 		.rst_n(rst_n),
 		
@@ -153,7 +165,12 @@ module dscope_main(
 		.o_adc_ratio_0(adc_ratio_0),
 		.o_adc_ratio_1(adc_ratio_1),
 		.o_adc_ratio_2(adc_ratio_2),
-		.o_adc_ratio_3(adc_ratio_3)
+		.o_adc_ratio_3(adc_ratio_3),
+		
+		.o_dac_level_0(dac_level_0),
+		.o_dac_level_1(dac_level_1),
+		.o_dac_level_2(dac_level_2),
+		.o_dac_level_3(dac_level_3)
 	);
 	
 	assign o_en_0x = 1'b1 << adc_vchn_0;
@@ -166,7 +183,7 @@ module dscope_main(
 	assign o_nenz_2x = ~pulse_mask_2;
 	assign o_nenz_3x = ~pulse_mask_3;
 	
-	wire						slot_sync;
+	wire						slot_changed;
 	wire						complite;
 	time_slot time_slot_unit(
 		.rst_n(rst_n),
@@ -180,9 +197,31 @@ module dscope_main(
 		.i_ts3(ts_time_3),
 		
 		.o_slot(slot),
-		.o_slot_sync(slot_sync),
+		.o_slot_sync(slot_changed),
 		
 		.o_complite(complite)
+	);
+	
+	wire						slot_sync;
+	dac_level dac_level_unit(
+		.rst_n(rst_n),
+		.clk(adc_clk),
+		
+		.i_sync(slot_changed),
+		
+		.i_dac_data_0(dac_level_0),
+		.i_dac_data_1(dac_level_1),
+		.i_dac_data_2(dac_level_2),
+		.i_dac_data_3(dac_level_3),
+		
+		.o_sync_delayed(slot_sync),
+		
+		.o_dac_data_0(o_dac_data_0),
+		.o_dac_data_1(o_dac_data_1),
+		.o_dac_data_2(o_dac_data_2),
+		.o_dac_data_3(o_dac_data_3),
+		
+		.o_dac_cs_n(o_dac_cs_n)
 	);
 			
 	pulse_channel pulse_channel_u0(

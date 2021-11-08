@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Nov  5 13:30:54 2021
+[*] Mon Nov  8 11:40:07 2021
 [*]
-[dumpfile] "/home/zaqc/work/altera/stick_2.0/eth/dumpfile_send_frame.vcd"
-[dumpfile_mtime] "Fri Nov  5 13:30:44 2021"
-[dumpfile_size] 4509057
-[savefile] "/home/zaqc/work/altera/stick_2.0/eth/cfg_send_frame.gtkw"
-[timestart] 0
+[dumpfile] "/home/zaqc/work/altera/stick2/eth/dumpfile_send_frame.vcd"
+[dumpfile_mtime] "Mon Nov  8 11:39:03 2021"
+[dumpfile_size] 4525355
+[savefile] "/home/zaqc/work/altera/stick2/eth/cfg_send_frame.gtkw"
+[timestart] 38864
 [size] 2716 1221
-[pos] -1 -1
-*-10.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 127 65
+*-8.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] packet_sender_tb.
 [treeopen] packet_sender_tb.packet_sender_unit.
 [sst_width] 223

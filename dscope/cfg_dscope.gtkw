@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Mon Nov  8 08:11:51 2021
+[*] Mon Nov  8 13:16:25 2021
 [*]
 [dumpfile] "/home/zaqc/work/altera/stick2/dscope/dumpfile_dscope.vcd"
-[dumpfile_mtime] "Mon Nov  8 08:10:52 2021"
-[dumpfile_size] 24050196
+[dumpfile_mtime] "Mon Nov  8 13:15:12 2021"
+[dumpfile_size] 24406225
 [savefile] "/home/zaqc/work/altera/stick2/dscope/cfg_dscope.gtkw"
-[timestart] 0
+[timestart] 1002738000
 [size] 3373 1385
 [pos] 200 20
-*-26.776672 265065500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.776672 265065500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] dscope_tb.
 [treeopen] dscope_tb.dscope_main_unit.
 [treeopen] dscope_tb.dscope_main_unit.phy_channel_u0.
@@ -19,6 +19,10 @@
 [sst_expanded] 1
 [sst_vpaned_height] 336
 @22
+dscope_tb.dscope_main_unit.control_param_unit.o_dac_level_0[7:0]
+dscope_tb.dscope_main_unit.control_param_unit.o_dac_level_1[7:0]
+dscope_tb.dscope_main_unit.control_param_unit.o_dac_level_2[7:0]
+dscope_tb.dscope_main_unit.control_param_unit.o_dac_level_3[7:0]
 dscope_tb.dscope_main_unit.o_en_0x[3:0]
 dscope_tb.dscope_main_unit.o_en_1x[3:0]
 dscope_tb.dscope_main_unit.o_en_2x[3:0]
@@ -26,8 +30,10 @@ dscope_tb.dscope_main_unit.o_en_3x[3:0]
 dscope_tb.dscope_main_unit.o_nenz_0x[3:0]
 dscope_tb.dscope_main_unit.o_nenz_1x[3:0]
 dscope_tb.dscope_main_unit.o_nenz_2x[3:0]
-@23
 dscope_tb.dscope_main_unit.o_nenz_3x[3:0]
+@28
+dscope_tb.dscope_main_unit.dac_level_unit.i_sync
+dscope_tb.dscope_main_unit.dac_level_unit.o_sync_delayed
 @200
 -Data Align
 @28
@@ -74,7 +80,9 @@ dscope_tb.dscope_main_unit.phy_channel_u0.adc_data_unit.i_sync
 @28
 dscope_tb.dscope_main_unit.pulse_channel_u0.i_sync
 dscope_tb.dscope_main_unit.pulse_channel_u0.hi_clk
+@29
 dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_hi
+@28
 dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_lo_n
 dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_gnd
 dscope_tb.dscope_main_unit.pulse_channel_u0.o_znd_gnd_n

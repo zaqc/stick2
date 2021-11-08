@@ -32,7 +32,7 @@ module stick_main(
 	input		[11:0]			i_d_1x,
 	input		[11:0]			i_d_2x,
 	input		[11:0]			i_d_3x,
-	
+		
 	output		[31:0]			o_tx_data,	// send to Ethernet
 	output						o_tx_vld,
 	output						o_tx_sop,
@@ -56,6 +56,8 @@ module stick_main(
 	
 	wire						frame_ready;
 	wire		[15:0]			frame_size;
+	
+	wire						dac_cs_n;
 
 	dscope_main dscope_main_unit(
 		.rst_n(rst_n),
@@ -86,6 +88,13 @@ module stick_main(
 		.i_d_2x(i_d_2x),
 		.i_d_3x(i_d_3x),
 		
+		.o_dac_data_0(o_doffs_x[0]),
+		.o_dac_data_1(o_doffs_x[1]),
+		.o_dac_data_2(o_doffs_x[2]),
+		.o_dac_data_3(o_doffs_x[3]),
+		
+		.o_dac_cs_n(dac_cs_n),
+		
 		.o_out_data(frame_data),
 		.o_out_vld(frame_vld),
 		.i_out_rdy(frame_rdy),
@@ -93,6 +102,8 @@ module stick_main(
 		.o_frame_ready(frame_ready),
 		.o_frame_size(frame_size)		
 	);
+	
+	assign o_soffs_nx = {dac_cs_n, dac_cs_n, dac_cs_n, dac_cs_n};
 	
 	packet_sender packet_sender_unit(
 		.rst_n(rst_n),
