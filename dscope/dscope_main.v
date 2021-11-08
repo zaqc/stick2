@@ -46,7 +46,10 @@ module dscope_main(
 	input						i_out_rdy,
 	
 	output						o_frame_ready,
-	output		[15:0]			o_frame_size
+	output		[15:0]			o_frame_size,
+	
+	input		[31:0]			i_command,
+	input						i_cmd_vld
 );
 
 	wire						adc_clk;
