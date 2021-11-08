@@ -6,6 +6,8 @@ module dscope_main(
 	
 	input						sys_clk,
 	
+	output						o_adc_clk,
+	
 	input						i_sync,
 
 	output		[3:0]			o_phase_ax,
@@ -53,6 +55,8 @@ module dscope_main(
 		
 		.o_adc_clk(adc_clk)
 	);
+	
+	assign o_adc_clk = adc_clk;
 
 	wire		[1:0]			slot;
 	
@@ -96,6 +100,11 @@ module dscope_main(
 	wire		[7:0]			adc_ratio_2;
 	wire		[7:0]			adc_ratio_3;
 	
+	wire		[3:0]			pulse_mask_0;
+	wire		[3:0]			pulse_mask_1;
+	wire		[3:0]			pulse_mask_2;
+	wire		[3:0]			pulse_mask_3;
+	
 	control_param control_param_unit(
 		.rst_n(rst_n),
 		
@@ -105,6 +114,11 @@ module dscope_main(
 		.o_ts_time_1(ts_time_1),
 		.o_ts_time_2(ts_time_2),
 		.o_ts_time_3(ts_time_3),
+		
+		.o_pulse_mask_0(pulse_mask_0),
+		.o_pulse_mask_1(pulse_mask_1),
+		.o_pulse_mask_2(pulse_mask_2),
+		.o_pulse_mask_3(pulse_mask_3),
 		
 		.o_pulse_hit_0(pulse_hit_0),
 		.o_pulse_hit_1(pulse_hit_1),
@@ -141,6 +155,16 @@ module dscope_main(
 		.o_adc_ratio_2(adc_ratio_2),
 		.o_adc_ratio_3(adc_ratio_3)
 	);
+	
+	assign o_en_0x = 1'b1 << adc_vchn_0;
+	assign o_en_1x = 1'b1 << adc_vchn_1;
+	assign o_en_2x = 1'b1 << adc_vchn_2;
+	assign o_en_3x = 1'b1 << adc_vchn_3;
+	
+	assign o_nenz_0x = ~pulse_mask_0;
+	assign o_nenz_1x = ~pulse_mask_1;
+	assign o_nenz_2x = ~pulse_mask_2;
+	assign o_nenz_3x = ~pulse_mask_3;
 	
 	wire						slot_sync;
 	wire						complite;
@@ -265,7 +289,7 @@ module dscope_main(
 		`ifdef TESTMODE 
 		.i_adc_data(adc_cntr),
 		`else
-		.i_adc_data(i_d_0x[7:0]),
+		.i_adc_data(i_d_0x[11:2]),
 		`endif
 		
 		.i_rd_vchn(rd_vchn),
@@ -302,7 +326,7 @@ module dscope_main(
 		`ifdef TESTMODE 
 		.i_adc_data(adc_cntr),
 		`else
-		.i_adc_data(i_d_0x[7:0]),
+		.i_adc_data(i_d_0x[11:4]),
 		`endif
 		
 		.i_rd_vchn(rd_vchn),

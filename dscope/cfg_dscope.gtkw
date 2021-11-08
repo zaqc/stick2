@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Nov  5 10:23:05 2021
+[*] Mon Nov  8 08:11:51 2021
 [*]
-[dumpfile] "/home/zaqc/work/altera/stick_2.0/dscope/dumpfile_dscope.vcd"
-[dumpfile_mtime] "Fri Nov  5 10:22:40 2021"
-[dumpfile_size] 24048041
-[savefile] "/home/zaqc/work/altera/stick_2.0/dscope/cfg_dscope.gtkw"
-[timestart] 264347000
+[dumpfile] "/home/zaqc/work/altera/stick2/dscope/dumpfile_dscope.vcd"
+[dumpfile_mtime] "Mon Nov  8 08:10:52 2021"
+[dumpfile_size] 24050196
+[savefile] "/home/zaqc/work/altera/stick2/dscope/cfg_dscope.gtkw"
+[timestart] 0
 [size] 3373 1385
 [pos] 200 20
-*-17.776672 265065500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.776672 265065500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] dscope_tb.
 [treeopen] dscope_tb.dscope_main_unit.
 [treeopen] dscope_tb.dscope_main_unit.phy_channel_u0.
@@ -18,6 +18,16 @@
 [signals_width] 285
 [sst_expanded] 1
 [sst_vpaned_height] 336
+@22
+dscope_tb.dscope_main_unit.o_en_0x[3:0]
+dscope_tb.dscope_main_unit.o_en_1x[3:0]
+dscope_tb.dscope_main_unit.o_en_2x[3:0]
+dscope_tb.dscope_main_unit.o_en_3x[3:0]
+dscope_tb.dscope_main_unit.o_nenz_0x[3:0]
+dscope_tb.dscope_main_unit.o_nenz_1x[3:0]
+dscope_tb.dscope_main_unit.o_nenz_2x[3:0]
+@23
+dscope_tb.dscope_main_unit.o_nenz_3x[3:0]
 @200
 -Data Align
 @28
@@ -91,7 +101,6 @@ dscope_tb.dscope_main_unit.phy_channel_u0.i_complite
 dscope_tb.dscope_main_unit.o_phase_ax[3:0]
 dscope_tb.dscope_main_unit.o_phase_bx[3:0]
 dscope_tb.dscope_main_unit.o_phase_cx[3:0]
-@23
 dscope_tb.dscope_main_unit.o_phase_dx[3:0]
 @200
 -

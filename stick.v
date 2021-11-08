@@ -190,6 +190,10 @@ module stick(
 		.locked(rst_n)
 	);
 	
+	reg			[31:0]			int_sync;
+	always @ (posedge sys_clk)
+		int_sync <= int_sync < 32'd100000000 ? int_sync + 1'd1 : 32'd0;
+	
 	
 	wire		[31:0]			tx_data;
 	wire						tx_vld;
@@ -201,18 +205,32 @@ module stick(
 	wire						rx_sop;
 	wire						rx_eop;
 	wire						rx_rdy;
+	
+	wire						adc_clk;
 	stick_main stick_main_unit(
 		.rst_n(rst_n),
 		
 		.sys_clk(sys_clk),
 		.hi_clk(hi_clk),
 		
-		.i_sync(sync),
+		.i_sync(~|{int_sync}),
+		
+		.o_adc_clk(adc_clk),
 		
 		.o_phase_ax(phase_ax),
 		.o_phase_bx(phase_bx),
 		.o_phase_cx(phase_cx),
 		.o_phase_dx(phase_dx),
+		
+		.o_nenz_0x(nenz_0x),
+		.o_nenz_1x(nenz_1x),
+		.o_nenz_2x(nenz_2x),
+		.o_nenz_3x(nenz_3x),
+		
+		.o_en_0x(en_0x),
+		.o_en_1x(en_1x),
+		.o_en_2x(en_2x),
+		.o_en_3x(en_3x),
 		
 		.i_d_0x(d_0x),
 		.i_d_1x(d_1x),
@@ -231,6 +249,8 @@ module stick(
 		.i_rx_eop(rx_eop),
 		.o_rx_rdy(rx_rdy)
 	);
+	
+	assign mclk_x = {adc_clk, adc_clk, adc_clk, adc_clk};
 	
 	wire						mdio_in_phy_1;
 	wire						mdio_out_phy_1;
@@ -285,6 +305,8 @@ module stick(
 		.ff_rx_eop(rx_eop),
 		.ff_rx_rdy(rx_rdy)
 	);
+	
+	assign nrst_1x = rst_n;
 	
 	wire		[7:0]			phy_ctr_addr_1;
 	wire		[31:0]			phy_ctr_wr_data_1;

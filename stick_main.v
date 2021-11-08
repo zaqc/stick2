@@ -5,6 +5,8 @@ module stick_main(
 	
 	input						sys_clk,
 	
+	output						o_adc_clk,
+	
 	input						i_sync,
 
 	output		[3:0]			o_phase_ax,
@@ -59,7 +61,11 @@ module stick_main(
 		.rst_n(rst_n),
 		.hi_clk(hi_clk),
 		.sys_clk(sys_clk),
+		
+		.o_adc_clk(o_adc_clk),
+		
 		.i_sync(i_sync),
+		
 		.o_phase_ax(o_phase_ax),
 		.o_phase_bx(o_phase_bx),
 		.o_phase_cx(o_phase_cx),
