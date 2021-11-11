@@ -126,7 +126,7 @@ module stick_main(
 		.i_in_vld(frame_vld),
 		.o_in_rdy(frame_rdy),
 		
-		.i_udp_pkt_len({frame_size[13:0], 2'b00})	// convert bytes to 32bit word
+		.i_udp_pkt_len({frame_size[13:0], 2'b00})	// convert 32bit word to bytes (x4)
 
 	);
 	

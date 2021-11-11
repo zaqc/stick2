@@ -46,7 +46,8 @@ module dscope_main(
 	output						o_frame_ready,
 	output		[15:0]			o_frame_size,
 	
-	input		[31:0]			i_command,
+	input		[31:0]			i_cmd_magic,	// 0xF0AA550F
+	input		[31:0]			i_cmd_command,
 	input						i_cmd_vld
 );
 
@@ -120,6 +121,10 @@ module dscope_main(
 	
 	control_param control_param_unit(
 		.rst_n(rst_n),
+		
+		.i_cmd_magic(i_cmd_magic),
+		.i_cmd_command(i_cmd_command),
+		.i_cmd_vld(i_cmd_vld),
 		
 		.i_slot(slot),
 		
@@ -458,8 +463,14 @@ module dscope_main(
 				if(complite)
 					frame_ready <= 1'b1;
 
+	wire		[15:0]			header_size;
+
 	assign o_frame_ready = frame_ready;
-	assign o_frame_size = out_size_0 + out_size_1 + out_size_2 + out_size_3;
+	assign o_frame_size = header_size + out_size_0 + out_size_1 + out_size_2 + out_size_3;
+	
+	wire		[31:0]			frame_data;
+	wire						frame_vld;
+	wire						frame_rdy;
 	
 	data_reader data_reader_unit(
 		.rst_n(rst_n),
@@ -485,9 +496,32 @@ module dscope_main(
 		.i_rd_data_3(rd_data_3),
 		.o_rd_addr_3(rd_addr_3),
 		
+		.o_out_data(frame_data),
+		.o_out_vld(frame_vld),
+		.i_out_rdy(frame_rdy)
+	);
+	
+	frame_header frame_header_unit(
+		.rst_n(rst_n),
+		.clk(sys_clk),
+		
+		.i_sync(complite),
+		
+		.o_header_size(header_size),
+		
+		.i_frame_counter(32'h01010101),
+		.i_wheel_tick(32'h02020202),
+		.i_system_timer(32'h03030303),
+		
+		.i_frame_data(frame_data),
+		.i_frame_vld(frame_vld),
+		.o_frame_rdy(frame_rdy),
+		
+		
 		.o_out_data(o_out_data),
 		.o_out_vld(o_out_vld),
 		.i_out_rdy(i_out_rdy)
 	);
+	
 
 endmodule
