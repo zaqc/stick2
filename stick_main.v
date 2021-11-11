@@ -1,11 +1,11 @@
 module stick_main(
 	input						rst_n,
 	
-	input						hi_clk,
+	input						hi_clk,		// 200 MHz for Pulse
 	
-	input						sys_clk,
+	input						sys_clk,	// 100 MHz for system
 	
-	output						o_adc_clk,
+	input						adc_clk,	// 20 MHz for ADC
 	
 	input						i_sync,
 
@@ -64,7 +64,7 @@ module stick_main(
 		.hi_clk(hi_clk),
 		.sys_clk(sys_clk),
 		
-		.o_adc_clk(o_adc_clk),
+		.adc_clk(adc_clk),
 		
 		.i_sync(i_sync),
 		
@@ -129,6 +129,19 @@ module stick_main(
 		.i_udp_pkt_len({frame_size[13:0], 2'b00})	// convert bytes to 32bit word
 
 	);
+	
+	reg			[0:0]			prev_frame_ready;
+	always @ (posedge sys_clk) prev_frame_ready <= frame_ready;
+		
+	reg			[15:0]			w_cnt;
+	always @ (posedge sys_clk or negedge rst_n)
+		if(~rst_n)
+			w_cnt <= 16'd0;
+		else
+			if(~prev_frame_ready & frame_ready)
+				w_cnt <= 16'd0;
+			else
+				w_cnt <= frame_rdy & frame_vld ? w_cnt + 1'd1 : w_cnt;
 
 endmodule
 

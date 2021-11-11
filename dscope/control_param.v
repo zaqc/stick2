@@ -84,10 +84,10 @@ module control_param(
 			ts_time_2 <= 16'd1200;
 			ts_time_3 <= 16'd800;
 			`else
-			ts_time_0 <= 16'd9000;	// 180 us
-			ts_time_1 <= 16'd9000;
-			ts_time_2 <= 16'd9000;
-			ts_time_3 <= 16'd5000;	// 100 us for PC Channel
+			ts_time_0 <= 16'd3600;	// 180 us
+			ts_time_1 <= 16'd3600;
+			ts_time_2 <= 16'd3600;
+			ts_time_3 <= 16'd3600;	// 100 us for PC Channel
 			`endif
 			
 			`ifdef TESTMODE
@@ -107,16 +107,16 @@ module control_param(
 			`else
 			for(i = 5'd0; i < 5'd16; i = i + 1'd1) begin
 				pulse_mask[i] <= 4'd1 << i[1:0];
-				pulse_hit[i] <= i == 5'd15 ? 8'd20 : 8'd100;
-				pulse_gnd[i] <= i == 5'd15 ? 8'd180 : 8'd100;
+				pulse_hit[i] <= i == 5'd15 ? 8'd20 : 8'd40;
+				pulse_gnd[i] <= i == 5'd15 ? 8'd60 : 8'd40;
 				pulse_count[i] <= i == 5'd15 ? 4'd1 : 4'd4;
 				pulse_hush[i] <= 16'd1000;	// 5 uSec (200 ticks == 1 uSec)
 				
 				adc_vchn[i] <= i[1:0];
-				adc_tick[i] <= 8'd128;
-				adc_ratio[i] <= 8'd8;
+				adc_tick[i] <= 8'd64;	// 256
+				adc_ratio[i] <= 8'd14;	// 256 * 14 = 179.2 uSec
 				
-				dac_level[i] <= 8'd80;
+				dac_level[i] <= 8'd120;
 			end
 			`endif
 		end

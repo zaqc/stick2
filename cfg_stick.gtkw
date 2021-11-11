@@ -1,23 +1,23 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Mon Nov  8 16:28:19 2021
+[*] Tue Nov  9 15:42:54 2021
 [*]
 [dumpfile] "/home/zaqc/work/altera/stick2/dumpfile_stick.vcd"
-[dumpfile_mtime] "Mon Nov  8 16:27:06 2021"
-[dumpfile_size] 7083820
+[dumpfile_mtime] "Tue Nov  9 15:42:09 2021"
+[dumpfile_size] 7725839
 [savefile] "/home/zaqc/work/altera/stick2/cfg_stick.gtkw"
-[timestart] 0
-[size] 2199 995
-[pos] 973 361
-*-24.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 265189700
+[size] 2221 1262
+[pos] 1915 173
+*-15.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] stick_tb.
 [treeopen] stick_tb.stick_main_unit.
 [treeopen] stick_tb.stick_main_unit.dscope_main_unit.
 [treeopen] stick_tb.stick_main_unit.packet_sender_unit.
 [sst_width] 280
-[signals_width] 233
+[signals_width] 462
 [sst_expanded] 1
-[sst_vpaned_height] 291
+[sst_vpaned_height] 659
 @28
 stick_tb.stick_main_unit.rst_n
 stick_tb.stick_main_unit.hi_clk
@@ -25,6 +25,14 @@ stick_tb.stick_main_unit.i_sync
 stick_tb.stick_main_unit.sys_clk
 @200
 -
+@23
+stick_tb.stick_main_unit.dscope_main_unit.adc_cntr[11:0]
+@22
+stick_tb.stick_main_unit.o_tx_data[31:0]
+@28
+stick_tb.stick_main_unit.o_tx_sop
+stick_tb.stick_main_unit.o_tx_eop
+@200
 -DScope
 @28
 stick_tb.stick_main_unit.dscope_main_unit.pulse_channel_u0.o_znd_hi
@@ -39,14 +47,9 @@ stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_0
 stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_1
 stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_2
 stick_tb.stick_main_unit.dscope_main_unit.o_dac_data_3
-@c00023
-stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
-@28
-(0)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
-(1)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
-(2)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
-(3)stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x[3:0]
-@1401201
+@c00200
+-stick_tb.stick_main_unit.dscope_main_unit.o_doffs_x
+@1401200
 -group_end
 @28
 stick_tb.stick_main_unit.dscope_main_unit.o_dac_cs_n
@@ -67,5 +70,11 @@ stick_tb.stick_main_unit.packet_sender_unit.o_in_rdy
 stick_tb.stick_main_unit.packet_sender_unit.i_rx_data[31:0]
 @28
 stick_tb.stick_main_unit.packet_sender_unit.i_in_vld
+@200
+-
+@22
+stick_tb.stick_main_unit.w_cnt[15:0]
+stick_tb.stick_main_unit.frame_size[15:0]
+stick_tb.stick_main_unit.frame_data[31:0]
 [pattern_trace] 1
 [pattern_trace] 0

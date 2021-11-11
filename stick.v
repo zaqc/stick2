@@ -180,19 +180,23 @@ module stick(
 
 	//------------------------------------------------------------------------
 	
+	assign hpwon = 3'd1;
+	
 	wire						sys_clk;
 	wire						hi_clk;
+	wire						adc_clk;
 	wire						rst_n;
 	main_pll main_pll_unit(
 		.inclk0(clk),
 		.c0(sys_clk),
 		.c1(hi_clk),
+		.c2(adc_clk),
 		.locked(rst_n)
 	);
 	
 	reg			[31:0]			int_sync;
 	always @ (posedge sys_clk)
-		int_sync <= int_sync < 32'd100000000 ? int_sync + 1'd1 : 32'd0;
+		int_sync <= int_sync < 32'd500000 ? int_sync + 1'd1 : 32'd0;
 	
 	
 	wire		[31:0]			tx_data;
@@ -206,17 +210,15 @@ module stick(
 	wire						rx_eop;
 	wire						rx_rdy;
 	
-	wire						adc_clk;
 	stick_main stick_main_unit(
 		.rst_n(rst_n),
 		
 		.sys_clk(sys_clk),
 		.hi_clk(hi_clk),
+		.adc_clk(adc_clk),
 		
 		.i_sync(~|{int_sync}),
-		
-		.o_adc_clk(adc_clk),
-		
+				
 		.o_phase_ax(phase_ax),
 		.o_phase_bx(phase_bx),
 		.o_phase_cx(phase_cx),
@@ -231,6 +233,9 @@ module stick(
 		.o_en_1x(en_1x),
 		.o_en_2x(en_2x),
 		.o_en_3x(en_3x),
+		
+		.o_doffs_x(doffs_x),
+		.o_soffs_nx(soffs_nx),
 		
 		.i_d_0x(d_0x),
 		.i_d_1x(d_1x),

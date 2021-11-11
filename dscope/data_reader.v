@@ -10,19 +10,19 @@ module data_reader(
 	
 	input		[7:0]			i_data_len_0,
 	input		[31:0]			i_rd_data_0,
-	output		[9:0]			o_rd_addr_0,
+	output		[7:0]			o_rd_addr_0,
 	
 	input		[7:0]			i_data_len_1,
 	input		[31:0]			i_rd_data_1,
-	output		[9:0]			o_rd_addr_1,
+	output		[7:0]			o_rd_addr_1,
 	
 	input		[7:0]			i_data_len_2,
 	input		[31:0]			i_rd_data_2,
-	output		[9:0]			o_rd_addr_2,
+	output		[7:0]			o_rd_addr_2,
 	
 	input		[7:0]			i_data_len_3,
 	input		[31:0]			i_rd_data_3,
-	output		[9:0]			o_rd_addr_3,
+	output		[7:0]			o_rd_addr_3,
 	
 	output		[31:0]			o_out_data,
 	output						o_out_vld,
@@ -31,13 +31,13 @@ module data_reader(
 
 	assign o_rd_vchn = rd_channel[1:0];
 	
-	wire		[9:0]			data_len;
+	wire		[7:0]			data_len;
 	
 	assign data_len =
 		rd_channel[3:2] == 2'd0 ? i_data_len_0 :
 		rd_channel[3:2] == 2'd1 ? i_data_len_1 :
 		rd_channel[3:2] == 2'd2 ? i_data_len_2 :
-		rd_channel[3:2] == 2'd3 ? i_data_len_3 : 10'dX;
+		rd_channel[3:2] == 2'd3 ? i_data_len_3 : 8'dX;
 		
 	wire		[31:0]			rd_data;
 	assign rd_data =

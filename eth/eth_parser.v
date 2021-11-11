@@ -226,10 +226,10 @@ module eth_parser(
 								default: recv_state <= 5'h1F;
 							endcase
 							
-						// 5'd17: 
+						// 5'd17:
 						RS_UDP_PORT: recv_state <= (udp_src_port == 16'd14057 && udp_dst_port == 16'd17814) ? 5'd24 : 5'h1F;
 						
-						// 5'd25: 
+						// 5'd25:
 						RS_UDP_VRCH_HDR: recv_state <= (tmp_def_addr == 32'hAA0FF055 && tmp_def_data[31:8] == 24'hACCA55) ? RS_FILL_VRCH /*5'd26*/ : RS_UDP_COMMAND /*5'h27*/;
 						
 						default: // recv_state 5'd20 - receive ICMP Ping Payload

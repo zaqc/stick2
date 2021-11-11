@@ -1,63 +1,68 @@
 `timescale 1ns/1ps
 
-module stick_tb;
+module dscope_tb;
 
 	initial begin
 		`ifdef TESTMODE
 			$display("Defined TESTMODE...");
 		`endif
-		$dumpfile("dumpfile_stick.vcd");
+		$dumpfile("dumpfile_clocksync.vcd");
 		$dumpvars(0);
 		
-		#600000
+		#200000
 		$finish();
 	end
 	
-	reg			[0:0]			hi_clk;
 	reg			[0:0]			rst_n;
 	initial begin
-		hi_clk <= 1'b0;
 		rst_n <= 1'b0;
 		#10
 		rst_n <= 1'b1;
+	end
+	
+	reg			[0:0]			hi_clk;
+	initial begin
+		hi_clk <= 1'b0;
+		#1
 		forever begin
-			#3
-			hi_clk <= ~hi_clk;	
+			#2.5
+			hi_clk <= ~hi_clk;
 		end
 	end
 	
 	reg			[0:0]			sys_clk;	// 100 MHz
 	initial begin
 		sys_clk <= 1'b1;
+		#2
 		forever begin
 			#5 
 			sys_clk <= ~sys_clk;
 		end
 	end
 	
-	reg			[0:0]			sync;
+	reg			[0:0]			adc_clk;	// 20 MHz
 	initial begin
-		sync <= 1'b0;
-		#973
-		sync <= 1'b1;
-		#200
-		sync <= 1'b0;
-		
-		#300000
-		sync <= 1'b1;
-		#200
-		sync <= 1'b0;
+		adc_clk <= 1'b1;
+		#3
+		forever begin
+			#25
+			adc_clk <= ~adc_clk;
+		end
 	end
 	
-	stick_main stick_main_unit(
+	reg			[7:0]			sync;
+	initial sync <= 8'd0;
+	always @ (posedge sys_clk)
+		sync <= sync + 1'd1;
+	
+	clock_sync clock_sync_u0(
 		.rst_n(rst_n),
 		.hi_clk(hi_clk),
-		
 		.sys_clk(sys_clk),
-		.i_sync(sync),
+		.adc_clk(adc_clk),
 		
-		.i_tx_rdy(1'b1)
+		.i_sync(&{sync})
 	);
-
+		
 endmodule
 

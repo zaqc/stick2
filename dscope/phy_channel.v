@@ -25,21 +25,8 @@ module phy_channel(
 	output		[31:0]			o_rd_data,
 	input		[7:0]			i_rd_addr,
 	
-	output		[15:0]			o_out_size,
-	output						o_frame_ready
+	output		[15:0]			o_out_size
 );
-
-	reg			[0:0]			frame_ready;
-	always @ (posedge clk or negedge rst_n)
-		if(~rst_n) 
-			frame_ready <= 1'b0;
-		else
-			if(i_sync)
-				frame_ready <= 1'b0;
-			else
-				if(i_complite)
-					frame_ready <= 1'b1;
-	assign o_frame_ready = frame_ready;
 
 	reg			[7:0]			data_count_0;
 	reg			[7:0]			data_count_1;

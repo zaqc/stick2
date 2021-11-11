@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Wed Nov 10 11:43:14 2021
+[*]
+[dumpfile] "/home/zaqc/work/altera/stick2/dscope/clock_sync_tb/dumpfile_clocksync.vcd"
+[dumpfile_mtime] "Wed Nov 10 11:42:11 2021"
+[dumpfile_size] 1946428
+[savefile] "/home/zaqc/work/altera/stick2/dscope/clock_sync_tb/cfg_clocksync.gtkw"
+[timestart] 75600000
+[size] 1808 882
+[pos] 1293 368
+*-21.000000 3502000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] dscope_tb.
+[sst_width] 223
+[signals_width] 325
+[sst_expanded] 1
+[sst_vpaned_height] 250
+@28
+dscope_tb.rst_n
+dscope_tb.hi_clk
+dscope_tb.sys_clk
+dscope_tb.adc_clk
+dscope_tb.clock_sync_u0.i_sync
+dscope_tb.clock_sync_u0.o_hi_sync
+@29
+dscope_tb.clock_sync_u0.o_sys_sync
+@28
+dscope_tb.clock_sync_u0.o_adc_sync
+[pattern_trace] 1
+[pattern_trace] 0

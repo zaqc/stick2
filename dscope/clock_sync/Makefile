@@ -1,9 +1,9 @@
 CC = iverilog
 FLAGS = -Wall -Winfloop -g2005-sv -DTESTMODE=1
 
-TARGET = dscope
+TARGET = clocksync
 
-SRC = $(TARGET)_tb.v dscope_main.v dac_level.v spi_dac.v data_align.v control_param.v data_reader.v phy_channel.v adc_data.v time_slot.v pulse_channel.v clock_sync/clock_sync.v ch_mem_buf.v
+SRC = $(TARGET)_tb.v clock_sync.v
 
 $(TARGET) : $(SRC) Makefile
 	$(CC) $(FLAGS) -o $(TARGET) $(SRC)

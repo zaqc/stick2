@@ -2,11 +2,9 @@
 
 module dscope_main(
 	input						rst_n,
-	input						hi_clk,
-	
-	input						sys_clk,
-	
-	output						o_adc_clk,
+	input						hi_clk,	
+	input						sys_clk,	
+	input						adc_clk,
 	
 	input						i_sync,
 
@@ -25,9 +23,9 @@ module dscope_main(
 	output		[3:0]			o_en_2x,
 	output		[3:0]			o_en_3x,
 	
-	output		[3:0]			o_doffs_x,
-	output		[3:0]			o_soffs_nx,
-	output		[3:0]			o_mclk_x,
+//	output		[3:0]			o_doffs_x,
+//	output		[3:0]			o_soffs_nx,
+//	output		[3:0]			o_mclk_x,
 	
 	input		[11:0]			i_d_0x,
 	input		[11:0]			i_d_1x,
@@ -52,22 +50,22 @@ module dscope_main(
 	input						i_cmd_vld
 );
 
-	wire						adc_clk;
-	wire						main_sync;
+	wire						adc_sync;
+	wire						sys_sync;
+	wire						hi_sync;
 	clock_sync clock_sync_unit(
 		.rst_n(rst_n),
-		.hi_clk(hi_clk),
-		
+		.hi_clk(hi_clk),		
 		.sys_clk(sys_clk),
+		.adc_clk(adc_clk),
+		
 		.i_sync(i_sync),
 		
-		.o_main_sync(main_sync),
-		
-		.o_adc_clk(adc_clk)
+		.o_hi_sync(hi_sync),
+		.o_sys_sync(sys_sync),
+		.o_adc_sync(adc_sync)
 	);
 	
-	assign o_adc_clk = adc_clk;
-
 	wire		[1:0]			slot;
 	
 	wire		[15:0]			ts_time_0;
@@ -192,7 +190,7 @@ module dscope_main(
 		.rst_n(rst_n),
 		.clk(adc_clk),
 		
-		.i_sync(main_sync),
+		.i_sync(adc_sync),
 		
 		.i_ts0(ts_time_0),
 		.i_ts1(ts_time_1),
@@ -298,10 +296,10 @@ module dscope_main(
 	wire		[1:0]			rd_vchn;
 	
 	`ifdef TESTMODE 
-	reg			[7:0]			adc_cntr;
+	reg			[11:0]			adc_cntr;
 	always @ (posedge adc_clk or negedge rst_n)
 		if(~rst_n)
-			adc_cntr <= 8'd0;
+			adc_cntr <= 12'd0;
 		else
 			adc_cntr <= adc_cntr + 1'd1;
 	`endif
@@ -311,14 +309,13 @@ module dscope_main(
 	wire		[7:0]			rd_addr_0;
 	wire		[31:0]			rd_data_0;
 	wire		[15:0]			out_size_0;
-	wire						frame_ready_0;
 	phy_channel phy_channel_u0(
 		.rst_n(rst_n),
 		.clk(adc_clk),
 		
 		.sys_clk(sys_clk),
 		
-		.i_sync(main_sync),
+		.i_sync(adc_sync),
 		.i_slot_sync(slot_sync),
 		
 		.i_complite(complite),
@@ -329,9 +326,9 @@ module dscope_main(
 		.i_data_len(adc_tick_0),
 		
 		`ifdef TESTMODE 
-		.i_adc_data(adc_cntr),
+		.i_adc_data(adc_cntr[11:4]),
 		`else
-		.i_adc_data(i_d_0x[11:2]),
+		.i_adc_data(i_d_0x[11:4]),
 		`endif
 		
 		.i_rd_vchn(rd_vchn),
@@ -340,22 +337,20 @@ module dscope_main(
 		.i_rd_addr(rd_addr_0),
 		.o_rd_data(rd_data_0),
 		
-		.o_out_size(out_size_0),
-		.o_frame_ready(frame_ready_0)
+		.o_out_size(out_size_0)
 	);
 	
 	wire		[7:0]			data_count_1;
 	wire		[7:0]			rd_addr_1;
 	wire		[31:0]			rd_data_1;
 	wire		[15:0]			out_size_1;
-	wire						frame_ready_1;
 	phy_channel phy_channel_u1(
 		.rst_n(rst_n),
 		.clk(adc_clk),
 		
 		.sys_clk(sys_clk),
 		
-		.i_sync(main_sync),
+		.i_sync(adc_sync),
 		.i_slot_sync(slot_sync),
 		
 		.i_complite(complite),
@@ -366,9 +361,9 @@ module dscope_main(
 		.i_data_len(adc_tick_1),
 		
 		`ifdef TESTMODE 
-		.i_adc_data(adc_cntr),
+		.i_adc_data(adc_cntr[11:4]),
 		`else
-		.i_adc_data(i_d_0x[11:4]),
+		.i_adc_data(i_d_1x[11:4]),
 		`endif
 		
 		.i_rd_vchn(rd_vchn),
@@ -377,22 +372,20 @@ module dscope_main(
 		.i_rd_addr(rd_addr_1),
 		.o_rd_data(rd_data_1),
 		
-		.o_out_size(out_size_1),
-		.o_frame_ready(frame_ready_1)
+		.o_out_size(out_size_1)
 	);
 	
 	wire		[7:0]			data_count_2;
 	wire		[7:0]			rd_addr_2;
 	wire		[31:0]			rd_data_2;
 	wire		[15:0]			out_size_2;
-	wire						frame_ready_2;
 	phy_channel phy_channel_u2(
 		.rst_n(rst_n),
 		.clk(adc_clk),
 		
 		.sys_clk(sys_clk),
 		
-		.i_sync(main_sync),
+		.i_sync(adc_sync),
 		.i_slot_sync(slot_sync),
 		
 		.i_complite(complite),
@@ -403,9 +396,9 @@ module dscope_main(
 		.i_data_len(adc_tick_2),
 		
 		`ifdef TESTMODE 
-		.i_adc_data(adc_cntr),
+		.i_adc_data(adc_cntr[11:4]),
 		`else
-		.i_adc_data(i_d_0x[7:0]),
+		.i_adc_data(i_d_2x[11:4]),
 		`endif
 		
 		.i_rd_vchn(rd_vchn),
@@ -414,22 +407,20 @@ module dscope_main(
 		.i_rd_addr(rd_addr_2),
 		.o_rd_data(rd_data_2),
 		
-		.o_out_size(out_size_2),
-		.o_frame_ready(frame_ready_2)
+		.o_out_size(out_size_2)
 	);
 	
 	wire		[7:0]			data_count_3;
 	wire		[7:0]			rd_addr_3;
 	wire		[31:0]			rd_data_3;
 	wire		[15:0]			out_size_3;
-	wire						frame_ready_3;
 	phy_channel phy_channel_u3(
 		.rst_n(rst_n),
 		.clk(adc_clk),
 		
 		.sys_clk(sys_clk),
 		
-		.i_sync(main_sync),
+		.i_sync(adc_sync),
 		.i_slot_sync(slot_sync),
 		
 		.i_complite(complite),
@@ -440,9 +431,9 @@ module dscope_main(
 		.i_data_len(adc_tick_3),
 		
 		`ifdef TESTMODE 
-		.i_adc_data(adc_cntr),
+		.i_adc_data(adc_cntr[11:4]),
 		`else
-		.i_adc_data(i_d_0x[7:0]),
+		.i_adc_data(i_d_3x[11:4]),
 		`endif
 		
 		.i_rd_vchn(rd_vchn),
@@ -451,13 +442,23 @@ module dscope_main(
 		.i_rd_addr(rd_addr_3),
 		.o_rd_data(rd_data_3),
 		
-		.o_out_size(out_size_3),
-		.o_frame_ready(frame_ready_3)
+		.o_out_size(out_size_3)
 	);
 
 	//------------------------------------------------------------------------
-	
-	assign o_frame_ready = frame_ready_0 & frame_ready_1 & frame_ready_2 & frame_ready_3;
+
+	reg			[0:0]			frame_ready;
+	always @ (posedge sys_clk or negedge rst_n)
+		if(~rst_n) 
+			frame_ready <= 1'b0;
+		else
+			if(sys_sync)
+				frame_ready <= 1'b0;
+			else
+				if(complite)
+					frame_ready <= 1'b1;
+
+	assign o_frame_ready = frame_ready;
 	assign o_frame_size = out_size_0 + out_size_1 + out_size_2 + out_size_3;
 	
 	data_reader data_reader_unit(
