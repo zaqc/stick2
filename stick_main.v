@@ -47,7 +47,9 @@ module stick_main(
 	
 	output		[31:0]			o_out_data,
 	output						o_out_vld,
-	input						i_out_rdy
+	input						i_out_rdy,
+	
+	output		[3:0]			o_led_cntr
 );
 
 	wire		[31:0]			frame_data;
@@ -58,6 +60,18 @@ module stick_main(
 	wire		[15:0]			frame_size;
 	
 	wire						dac_cs_n;
+	
+	wire		[31:0]			cmd_magic;
+	wire		[31:0]			cmd_command;
+	wire						cmd_vld;
+	wire						cmd_rdy;
+	
+	reg			[3:0]			led_cntr;
+	initial led_cntr <= 4'd0;
+	always @ (posedge sys_clk)
+		if(cmd_vld) led_cntr <= led_cntr + 1'd1;
+		
+	assign o_led_cntr = led_cntr;
 
 	dscope_main dscope_main_unit(
 		.rst_n(rst_n),
@@ -67,6 +81,11 @@ module stick_main(
 		.adc_clk(adc_clk),
 		
 		.i_sync(i_sync),
+		
+		.i_cmd_magic(cmd_magic),
+		.i_cmd_command(cmd_command),
+		.i_cmd_vld(cmd_vld),
+		.o_cmd_rdy(cmd_rdy),
 		
 		.o_phase_ax(o_phase_ax),
 		.o_phase_bx(o_phase_bx),
@@ -125,6 +144,11 @@ module stick_main(
 		.i_in_data(frame_data),
 		.i_in_vld(frame_vld),
 		.o_in_rdy(frame_rdy),
+		
+		.o_def_addr(cmd_magic),
+		.o_def_data(cmd_command),
+		.o_def_wren(cmd_vld),
+		.i_def_rdy(cmd_rdy),
 		
 		.i_udp_pkt_len({frame_size[13:0], 2'b00})	// convert 32bit word to bytes (x4)
 

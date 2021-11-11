@@ -40,13 +40,13 @@ module dac_level(
 	reg			[0:0]			prev_sync;
 	always @ (posedge clk) prev_sync <= i_sync;
 	
-	reg			[6:0]			dly_cntr;
-	initial dly_cntr <= 7'd0;
+	reg			[7:0]			dly_cntr;
+	initial dly_cntr <= 8'd0;
 	wire						dly_complite;
 	assign dly_complite = &{dly_cntr};
 	always @ (posedge clk)
 		if(~prev_sync & i_sync)
-			dly_cntr <= 7'd0;
+			dly_cntr <= 8'd0;
 		else
 			dly_cntr <= dly_complite ? dly_cntr : dly_cntr + 1'd1;
 			

@@ -208,7 +208,7 @@ module stick(
 	wire						rx_vld;
 	wire						rx_sop;
 	wire						rx_eop;
-	wire						rx_rdy;
+	wire						rx_rdy;	
 	
 	stick_main stick_main_unit(
 		.rst_n(rst_n),
@@ -252,7 +252,9 @@ module stick(
 		.i_rx_vld(rx_vld),
 		.i_rx_sop(rx_sop),
 		.i_rx_eop(rx_eop),
-		.o_rx_rdy(rx_rdy)
+		.o_rx_rdy(rx_rdy),
+		
+		.o_led_cntr(led)
 	);
 	
 	assign mclk_x = {adc_clk, adc_clk, adc_clk, adc_clk};

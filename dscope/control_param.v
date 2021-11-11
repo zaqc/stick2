@@ -2,10 +2,13 @@
 
 module control_param(
 	input						rst_n,
+	
+	input						clk,
 
 	input		[31:0]			i_cmd_magic,	// 0xAAFAAF55
 	input		[31:0]			i_cmd_command,
 	input						i_cmd_vld,
+	output						o_cmd_rdy,
 
 	input		[1:0]			i_slot,			// slot number
 	
@@ -60,6 +63,8 @@ module control_param(
 	output		[7:0]			o_dac_level_3
 );
 
+	assign o_cmd_rdy = 1'b1;
+	
 	reg			[15:0]		ts_time[0:3];
 
 	reg			[3:0]		pulse_mask[0:15];
@@ -98,8 +103,15 @@ module control_param(
 							NCMD_ADC_TICK = 4'd9,
 							NCMD_SLOT_TIME = 4'd10;
 
+	probe32 probe_u0(
+		.probe(i_cmd_magic)
+	);
 	
-	always @ (negedge rst_n)
+	probe32 probe_u1(
+		.probe(i_cmd_command)
+	);
+	
+	always @ (posedge clk or negedge rst_n)
 		if(~rst_n) begin
 			`ifdef TESTMODE
 			ts_time[2'd0] <= 16'd1200;
@@ -137,7 +149,7 @@ module control_param(
 				
 				adc_vchn[i] <= i[1:0];
 				adc_tick[i] <= 8'd64;	// 256
-				adc_ratio[i] <= 8'd14;	// 256 * 14 = 179.2 uSec
+				adc_ratio[i] <= 8'd12;	// 256 * 12 = 153.6 uSec
 				
 				dac_level[i] <= 8'd120;
 			end

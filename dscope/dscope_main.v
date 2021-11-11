@@ -48,12 +48,14 @@ module dscope_main(
 	
 	input		[31:0]			i_cmd_magic,	// 0xF0AA550F
 	input		[31:0]			i_cmd_command,
-	input						i_cmd_vld
+	input						i_cmd_vld,
+	output						o_cmd_rdy
 );
 
 	wire						adc_sync;
 	wire						sys_sync;
 	wire						hi_sync;
+	
 	clock_sync clock_sync_unit(
 		.rst_n(rst_n),
 		.hi_clk(hi_clk),		
@@ -122,9 +124,12 @@ module dscope_main(
 	control_param control_param_unit(
 		.rst_n(rst_n),
 		
+		.clk(sys_clk),
+		
 		.i_cmd_magic(i_cmd_magic),
 		.i_cmd_command(i_cmd_command),
 		.i_cmd_vld(i_cmd_vld),
+		.o_cmd_rdy(o_cmd_rdy),
 		
 		.i_slot(slot),
 		

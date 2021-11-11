@@ -10,6 +10,7 @@ PROJECT_ROOT = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 SRC += $(wildcard $(PROJECT_ROOT)dscope/*.v)
 SRC += $(wildcard $(PROJECT_ROOT)eth/*.v)
+SRC += dscope/clock_sync/clock_sync.v
 
 SRC := $(patsubst $(PROJECT_ROOT)eth/send_frame_tb.v, , $(SRC))
 SRC := $(patsubst $(PROJECT_ROOT)eth/eth_tx_fifo.v, , $(SRC))
