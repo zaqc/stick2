@@ -54,7 +54,6 @@ module stick_tb;
 		.hi_clk(hi_clk),
 		
 		.sys_clk(sys_clk),
-		.i_sync(sync),
 		
 		.i_tx_rdy(1'b1)
 	);

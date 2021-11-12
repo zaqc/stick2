@@ -60,7 +60,13 @@ module control_param(
 	output		[7:0]			o_dac_level_0,
 	output		[7:0]			o_dac_level_1,
 	output		[7:0]			o_dac_level_2,
-	output		[7:0]			o_dac_level_3
+	output		[7:0]			o_dac_level_3,
+	
+	output		[15:0]			o_in_sync_div,
+	output						o_sync_enabled,
+	output						o_int_ext_sync,
+	output		[7:0]			o_wheel_add,
+	output		[7:0]			o_frame_dec
 );
 
 	assign o_cmd_rdy = 1'b1;
@@ -79,6 +85,12 @@ module control_param(
 	reg			[7:0]		adc_ratio[0:15];
 	
 	reg			[7:0]		dac_level[0:15];
+	
+	reg			[15:0]		in_sync_div;
+	reg			[0:0]		sync_enabled;
+	reg			[0:0]		int_ext_sync;
+	reg			[7:0]		wheel_add;
+	reg			[7:0]		frame_dec;
 
 	reg		 	[5:0]		i;
 	
@@ -151,13 +163,24 @@ module control_param(
 				adc_tick[i] <= 8'd64;	// 256
 				adc_ratio[i] <= 8'd12;	// 256 * 12 = 153.6 uSec
 				
-				dac_level[i] <= 8'd120;
+				dac_level[i] <= 8'd120;				
 			end
+			
+			wheel_add <= 8'd9;
+			frame_dec <= 8'd234;
+			in_sync_div <= 16'd100;
+			sync_enabled <= 1'b1;	// sync enabled
+			int_ext_sync <= 1'b1;	// external sync			
 			`endif
 		end
 		else
 			if(i_cmd_vld && i_cmd_magic == 32'hF0AA550F) begin
 				if(global_cmd) begin
+					sync_enabled <= i_cmd_command[30];
+					int_ext_sync <= i_cmd_command[29];
+					in_sync_div <= {3'd0, i_cmd_command[28:16]};
+					wheel_add <= i_cmd_command[15:8];
+					frame_dec <= i_cmd_command[7:0];
 				end
 				else begin
 					case(ncmd)
@@ -233,5 +256,11 @@ module control_param(
 	assign o_dac_level_1 = dac_level[slot_1];
 	assign o_dac_level_2 = dac_level[slot_2];
 	assign o_dac_level_3 = dac_level[slot_3];
+	
+	assign o_in_sync_div = in_sync_div;
+	assign o_wheel_add = wheel_add;
+	assign o_frame_dec = frame_dec;
+	assign o_sync_enabled = sync_enabled;
+	assign o_int_ext_sync = int_ext_sync;
 	
 endmodule

@@ -234,6 +234,8 @@ set_location_assignment PIN_P4 -to txer_2x
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name VERILOG_FILE dscope/sync/ext_sync.v
+set_global_assignment -name VERILOG_FILE dscope/sync/synchronizer.v
 set_global_assignment -name VERILOG_FILE dscope/frame_header.v
 set_global_assignment -name VERILOG_FILE dscope/clock_sync/clock_sync.v
 set_global_assignment -name VERILOG_FILE dscope/spi_dac.v

@@ -192,12 +192,7 @@ module stick(
 		.c1(hi_clk),
 		.c2(adc_clk),
 		.locked(rst_n)
-	);
-	
-	reg			[31:0]			int_sync;
-	always @ (posedge sys_clk)
-		int_sync <= int_sync < 32'd500000 ? int_sync + 1'd1 : 32'd0;
-	
+	);	
 	
 	wire		[31:0]			tx_data;
 	wire						tx_vld;
@@ -216,8 +211,6 @@ module stick(
 		.sys_clk(sys_clk),
 		.hi_clk(hi_clk),
 		.adc_clk(adc_clk),
-		
-		.i_sync(~|{int_sync}),
 		
 		.i_ch_a(adp),
 		.i_ch_b(bdp),

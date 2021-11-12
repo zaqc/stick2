@@ -52,12 +52,16 @@ module dscope_main(
 	input		[31:0]			i_cmd_magic,	// 0xF0AA550F
 	input		[31:0]			i_cmd_command,
 	input						i_cmd_vld,
-	output						o_cmd_rdy
+	output						o_cmd_rdy,
+	
+	output		[3:0]			o_led_cntr
 );
 
 	wire						adc_sync;
 	wire						sys_sync;
 	wire						hi_sync;
+	
+	wire						sync;
 	
 	clock_sync clock_sync_unit(
 		.rst_n(rst_n),
@@ -65,7 +69,7 @@ module dscope_main(
 		.sys_clk(sys_clk),
 		.adc_clk(adc_clk),
 		
-		.i_sync(i_sync),
+		.i_sync(sync),
 		
 		.o_hi_sync(hi_sync),
 		.o_sys_sync(sys_sync),
@@ -123,6 +127,12 @@ module dscope_main(
 	wire		[7:0]			dac_level_1;
 	wire		[7:0]			dac_level_2;
 	wire		[7:0]			dac_level_3;
+	
+	wire						sync_enabled;
+	wire						int_ext_sync;
+	wire		[15:0]			in_sync_div;
+	wire		[7:0]			wheel_add;
+	wire		[7:0]			frame_dec;
 	
 	control_param control_param_unit(
 		.rst_n(rst_n),
@@ -184,7 +194,13 @@ module dscope_main(
 		.o_dac_level_0(dac_level_0),
 		.o_dac_level_1(dac_level_1),
 		.o_dac_level_2(dac_level_2),
-		.o_dac_level_3(dac_level_3)
+		.o_dac_level_3(dac_level_3),
+		
+		.o_sync_enabled(sync_enabled),
+		.o_int_ext_sync(int_ext_sync),
+		.o_in_sync_div(in_sync_div),
+		.o_wheel_add(wheel_add),
+		.o_frame_dec(frame_dec)
 	);
 	
 	assign o_en_0x = 1'b1 << adc_vchn_0;
@@ -509,7 +525,31 @@ module dscope_main(
 		.i_out_rdy(frame_rdy)
 	);
 	
+	wire		[31:0]			sync_counter;
+	wire		[31:0]			way_meter;
+	wire		[31:0]			system_timer;
 	
+	synchronizer sychronizer_unit(
+		.rst_n(rst_n),
+		.clk(sys_clk),
+		
+		.i_ch_a(i_ch_a),
+		.i_ch_b(i_ch_b),
+		
+		.i_sync_enabled(sync_enabled),
+		.i_int_ext_sync(int_ext_sync),
+		.i_wheel_add(wheel_add),
+		.i_frame_dec(frame_dec),
+		.i_in_sync_div(in_sync_div),
+		
+		.o_sync_counter(sync_counter),
+		.o_way_meter(way_meter),
+		.o_system_timer(system_timer),
+		
+		.o_sync(sync)
+	);
+	
+	assign o_led_cntr = way_meter[3:0];
 	
 	frame_header frame_header_unit(
 		.rst_n(rst_n),
@@ -519,9 +559,9 @@ module dscope_main(
 		
 		.o_header_size(header_size),
 		
-		.i_sync_counter(32'h01010101),
-		.i_way_meter(32'h02020202),
-		.i_system_timer(32'h03030303),
+		.i_sync_counter(sync_counter),
+		.i_way_meter(way_meter),
+		.i_system_timer(system_timer),
 		
 		.i_frame_data(frame_data),
 		.i_frame_vld(frame_vld),

@@ -7,7 +7,8 @@ module stick_main(
 	
 	input						adc_clk,	// 20 MHz for ADC
 	
-	input						i_sync,
+	input						i_ch_a,
+	input						i_ch_b,
 
 	output		[3:0]			o_phase_ax,
 	output		[3:0]			o_phase_bx,
@@ -66,12 +67,12 @@ module stick_main(
 	wire						cmd_vld;
 	wire						cmd_rdy;
 	
-	reg			[3:0]			led_cntr;
-	initial led_cntr <= 4'd0;
-	always @ (posedge sys_clk)
-		if(cmd_vld) led_cntr <= led_cntr + 1'd1;
-		
-	assign o_led_cntr = led_cntr;
+//	reg			[3:0]			led_cntr;
+//	initial led_cntr <= 4'd0;
+//	always @ (posedge sys_clk)
+//		if(cmd_vld) led_cntr <= led_cntr + 1'd1;
+//		
+//	assign o_led_cntr = led_cntr;
 
 	dscope_main dscope_main_unit(
 		.rst_n(rst_n),
@@ -79,8 +80,9 @@ module stick_main(
 		.sys_clk(sys_clk),
 		
 		.adc_clk(adc_clk),
-		
-		.i_sync(i_sync),
+				
+		.i_ch_a(i_ch_a),
+		.i_ch_b(i_ch_b),
 		
 		.i_cmd_magic(cmd_magic),
 		.i_cmd_command(cmd_command),
@@ -119,7 +121,9 @@ module stick_main(
 		.i_out_rdy(frame_rdy),
 		
 		.o_frame_ready(frame_ready),
-		.o_frame_size(frame_size)		
+		.o_frame_size(frame_size),
+		
+		.o_led_cntr(o_led_cntr)
 	);
 	
 	assign o_soffs_nx = {dac_cs_n, dac_cs_n, dac_cs_n, dac_cs_n};

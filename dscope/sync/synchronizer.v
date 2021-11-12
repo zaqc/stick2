@@ -87,7 +87,7 @@ module synchronizer(
 			if(o_sync)
 				sync_overrun <= 9'd0;
 			else
-				sync_overrun <= &{sync_overrun} && tick_1MHz ? sync_overrun : sync_overrun + 1'd1;
+				sync_overrun <= &{sync_overrun} || ~tick_1MHz ? sync_overrun : sync_overrun + 1'd1;
 				
 	assign o_sync =
 		~i_sync_enabled || ~&{sync_overrun} ? 1'b0 :
