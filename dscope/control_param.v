@@ -103,13 +103,13 @@ module control_param(
 							NCMD_ADC_TICK = 4'd9,
 							NCMD_SLOT_TIME = 4'd10;
 
-	probe32 probe_u0(
-		.probe(i_cmd_magic)
-	);
-	
-	probe32 probe_u1(
-		.probe(i_cmd_command)
-	);
+//	probe32 probe_u0(
+//		.probe(i_cmd_magic)
+//	);
+//	
+//	probe32 probe_u1(
+//		.probe(i_cmd_command)
+//	);
 	
 	always @ (posedge clk or negedge rst_n)
 		if(~rst_n) begin

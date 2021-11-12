@@ -218,6 +218,9 @@ module stick(
 		.adc_clk(adc_clk),
 		
 		.i_sync(~|{int_sync}),
+		
+		.i_ch_a(adp),
+		.i_ch_b(bdp),
 				
 		.o_phase_ax(phase_ax),
 		.o_phase_bx(phase_bx),
@@ -256,6 +259,9 @@ module stick(
 		
 		.o_led_cntr(led)
 	);
+	
+	//assign led[0] = adp;
+	//assign led[1] = bdp;
 	
 	assign mclk_x = {adc_clk, adc_clk, adc_clk, adc_clk};
 	

@@ -7,6 +7,9 @@ module dscope_main(
 	input						adc_clk,
 	
 	input						i_sync,
+	
+	input						i_ch_a,
+	input						i_ch_b,
 
 	output		[3:0]			o_phase_ax,
 	output		[3:0]			o_phase_bx,
@@ -506,6 +509,8 @@ module dscope_main(
 		.i_out_rdy(frame_rdy)
 	);
 	
+	
+	
 	frame_header frame_header_unit(
 		.rst_n(rst_n),
 		.clk(sys_clk),
@@ -514,8 +519,8 @@ module dscope_main(
 		
 		.o_header_size(header_size),
 		
-		.i_frame_counter(32'h01010101),
-		.i_wheel_tick(32'h02020202),
+		.i_sync_counter(32'h01010101),
+		.i_way_meter(32'h02020202),
 		.i_system_timer(32'h03030303),
 		
 		.i_frame_data(frame_data),
