@@ -164,8 +164,8 @@ module control_param(
 			`else
 			for(i = 5'd0; i < 5'd16; i = i + 1'd1) begin
 				pulse_mask[i] <= 4'd1 << i[1:0];
-				pulse_hit[i] <= i == 5'd15 ? 8'd20 : 8'd40;
-				pulse_gnd[i] <= i == 5'd15 ? 8'd60 : 8'd40;
+				pulse_hit[i] <= i == 5'd15 ? 8'd10 : 8'd20;
+				pulse_gnd[i] <= i == 5'd15 ? 8'd30 : 8'd20;
 				pulse_count[i] <= i == 5'd15 ? 4'd1 : 4'd4;
 				pulse_hush[i] <= 16'd1000;	// 5 uSec (200 ticks == 1 uSec)
 				
