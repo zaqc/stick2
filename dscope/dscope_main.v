@@ -128,6 +128,11 @@ module dscope_main(
 	wire		[7:0]			dac_level_2;
 	wire		[7:0]			dac_level_3;
 	
+	wire		[7:0]			adc_delay_0;
+	wire		[7:0]			adc_delay_1;
+	wire		[7:0]			adc_delay_2;
+	wire		[7:0]			adc_delay_3;
+	
 	wire						sync_enabled;
 	wire						int_ext_sync;
 	wire		[15:0]			in_sync_div;
@@ -195,6 +200,11 @@ module dscope_main(
 		.o_dac_level_1(dac_level_1),
 		.o_dac_level_2(dac_level_2),
 		.o_dac_level_3(dac_level_3),
+		
+		.o_adc_delay_0(adc_delay_0),
+		.o_adc_delay_1(adc_delay_1),
+		.o_adc_delay_2(adc_delay_2),
+		.o_adc_delay_3(adc_delay_3),
 		
 		.o_sync_enabled(sync_enabled),
 		.o_int_ext_sync(int_ext_sync),
@@ -353,6 +363,7 @@ module dscope_main(
 		
 		.i_ratio(adc_ratio_0),
 		.i_data_len(adc_tick_0),
+		.i_adc_delay(adc_delay_0),
 		
 		`ifdef TESTMODE 
 		.i_adc_data(adc_cntr[11:4]),
@@ -388,6 +399,7 @@ module dscope_main(
 		
 		.i_ratio(adc_ratio_1),
 		.i_data_len(adc_tick_1),
+		.i_adc_delay(adc_delay_1),
 		
 		`ifdef TESTMODE 
 		.i_adc_data(adc_cntr[11:4]),
@@ -423,6 +435,7 @@ module dscope_main(
 		
 		.i_ratio(adc_ratio_2),
 		.i_data_len(adc_tick_2),
+		.i_adc_delay(adc_delay_2),
 		
 		`ifdef TESTMODE 
 		.i_adc_data(adc_cntr[11:4]),
@@ -458,6 +471,7 @@ module dscope_main(
 		
 		.i_ratio(adc_ratio_3),
 		.i_data_len(adc_tick_3),
+		.i_adc_delay(adc_delay_3),
 		
 		`ifdef TESTMODE 
 		.i_adc_data(adc_cntr[11:4]),

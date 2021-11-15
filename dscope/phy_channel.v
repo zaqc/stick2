@@ -12,6 +12,7 @@ module phy_channel(
 		
 	input		[7:0]			i_adc_data,		// x4 data from ADC
 	input		[7:0]			i_data_len,		// x4 data len in Out Tick (ADC Accumed) 10'd1023 - Max
+	input		[7:0]			i_adc_delay,
 	
 	input		[7:0]			i_ratio,
 	
@@ -92,6 +93,7 @@ module phy_channel(
 	reg			[7:0]			data_count[0:7];
 		
 	reg			[2:0]			i;
+	reg			[7:0]			adc_delay;
 	always @ (posedge clk or negedge rst_n)
 		if(~rst_n) begin
 			addr <= 8'd0;
@@ -100,11 +102,13 @@ module phy_channel(
 			flip_half <= 1'b0;
 			for(i = 3'd0; ~|{i}; i = i + 1'd1)
 				data_count[i] <= 8'd0;
+			adc_delay <= 8'd0;
 		end
 		else
 			if(i_sync) begin				
 				for(i = 3'd0; i < 3'd4; i = i + 1'd1)
 					data_count[{~flip_half, i[1:0]}] <= 8'd0;
+				adc_delay <= 8'd0;
 					
 				flip_half <= ~flip_half;
 			end
@@ -113,16 +117,21 @@ module phy_channel(
 					addr <= 8'd0;
 					wr_flag <= |{i_data_len} ? 1'b1 : 1'b0;
 					data_ready <= 1'b0;
+					adc_delay <= 8'd0;
 				end
 				else
 					if(wr_flag && out_adc_vld) begin
-						if(&{addr} || 9'd1 + addr >= i_data_len) begin
-							wr_flag <= 1'b0;
-							data_ready <= 1'b1;
-							data_count[{flip_half, i_wr_vchn}] <= addr + 1'd1;
+						if(adc_delay < i_adc_delay)
+							adc_delay <= adc_delay + 1'd1;
+						else begin
+							if(&{addr} || 9'd1 + addr >= i_data_len) begin
+								wr_flag <= 1'b0;
+								data_ready <= 1'b1;
+								data_count[{flip_half, i_wr_vchn}] <= addr + 1'd1;
+							end
+							else
+								addr <= addr + 1'd1;
 						end
-						else
-							addr <= addr + 1'd1;
 					end
 						
 	ch_mem_buf ch_mem_buf_unit(

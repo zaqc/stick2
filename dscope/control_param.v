@@ -62,6 +62,11 @@ module control_param(
 	output		[7:0]			o_dac_level_2,
 	output		[7:0]			o_dac_level_3,
 	
+	output		[7:0]			o_adc_delay_0,
+	output		[7:0]			o_adc_delay_1,
+	output		[7:0]			o_adc_delay_2,
+	output		[7:0]			o_adc_delay_3,
+	
 	output		[15:0]			o_in_sync_div,
 	output						o_sync_enabled,
 	output						o_int_ext_sync,
@@ -85,6 +90,8 @@ module control_param(
 	reg			[7:0]		adc_ratio[0:15];
 	
 	reg			[7:0]		dac_level[0:15];
+	
+	reg			[7:0]		adc_delay[0:15];
 	
 	reg			[15:0]		in_sync_div;
 	reg			[0:0]		sync_enabled;
@@ -113,7 +120,8 @@ module control_param(
 							NCMD_DAC_LEVEL = 4'd7,
 							NCMD_ADC_RATIO = 4'd8,
 							NCMD_ADC_TICK = 4'd9,
-							NCMD_SLOT_TIME = 4'd10;
+							NCMD_SLOT_TIME = 4'd10,
+							NCMD_ADC_DELAY = 4'd11;
 
 //	probe32 probe_u0(
 //		.probe(i_cmd_magic)
@@ -150,6 +158,8 @@ module control_param(
 				adc_ratio[i] <= 8'd4;
 				
 				dac_level[i] <= {i, 3'd0};
+				
+				adc_delay[i] <= i & 1'b1 ? 8'd10 : 8'd0;
 			end
 			`else
 			for(i = 5'd0; i < 5'd16; i = i + 1'd1) begin
@@ -163,7 +173,9 @@ module control_param(
 				adc_tick[i] <= 8'd64;	// 256
 				adc_ratio[i] <= 8'd12;	// 256 * 12 = 153.6 uSec
 				
-				dac_level[i] <= 8'd120;				
+				dac_level[i] <= 8'd120;
+				
+				adc_delay[i] <= 8'd0;
 			end
 			
 			wheel_add <= 8'd9;
@@ -194,6 +206,7 @@ module control_param(
 						NCMD_ADC_RATIO: adc_ratio[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
 						NCMD_ADC_TICK: adc_tick[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
 						NCMD_SLOT_TIME: ts_time[cmd_slot] = i_cmd_command[15:0];
+						NCMD_ADC_DELAY: adc_delay[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
 					endcase
 				end
 			end
@@ -256,6 +269,11 @@ module control_param(
 	assign o_dac_level_1 = dac_level[slot_1];
 	assign o_dac_level_2 = dac_level[slot_2];
 	assign o_dac_level_3 = dac_level[slot_3];
+	
+	assign o_adc_delay_0 = adc_delay[slot_0];
+	assign o_adc_delay_1 = adc_delay[slot_1];
+	assign o_adc_delay_2 = adc_delay[slot_2];
+	assign o_adc_delay_3 = adc_delay[slot_3];
 	
 	assign o_in_sync_div = in_sync_div;
 	assign o_wheel_add = wheel_add;
