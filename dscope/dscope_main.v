@@ -213,10 +213,10 @@ module dscope_main(
 		.o_frame_dec(frame_dec)
 	);
 	
-	assign o_en_0x = 1'b1 << adc_vchn_0;
-	assign o_en_1x = 1'b1 << adc_vchn_1;
-	assign o_en_2x = 1'b1 << adc_vchn_2;
-	assign o_en_3x = 1'b1 << adc_vchn_3;
+	assign o_en_0x = 4'd8 >> adc_vchn_0;	// reverse virtual channels ADC pinout
+	assign o_en_1x = 4'd8 >> adc_vchn_1;
+	assign o_en_2x = 4'd8 >> adc_vchn_2;
+	assign o_en_3x = 4'd8 >> adc_vchn_3;
 	
 	assign o_nenz_0x = ~pulse_mask_0;
 	assign o_nenz_1x = ~pulse_mask_1;

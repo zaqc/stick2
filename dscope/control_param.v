@@ -198,8 +198,8 @@ module control_param(
 					case(ncmd)
 						NCMD_PULSE_MASK: pulse_mask[{cmd_ch, cmd_slot}] = i_cmd_command[3:0];
 						NCMD_RX_INDEX: adc_vchn[{cmd_ch, cmd_slot}] = i_cmd_command[1:0];
-						NCMD_HIT_LEN: pulse_hit[{cmd_ch, cmd_slot}] = i_cmd_command[3:0];
-						NCMD_GND_LEN: pulse_gnd[{cmd_ch, cmd_slot}] = i_cmd_command[3:0];
+						NCMD_HIT_LEN: pulse_hit[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
+						NCMD_GND_LEN: pulse_gnd[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
 						NCMD_HUSH_LEN: pulse_hush[{cmd_ch, cmd_slot}] = i_cmd_command[15:0];
 						NCMD_PULSE_COUNT: pulse_count[{cmd_ch, cmd_slot}] = i_cmd_command[3:0];
 						NCMD_DAC_LEVEL: dac_level[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
@@ -225,10 +225,14 @@ module control_param(
 	wire		[3:0]			slot_3;
 	assign slot_3 = {2'd3, i_slot};
 	
-	assign o_pulse_mask_0 = pulse_mask[slot_0];
-	assign o_pulse_mask_1 = pulse_mask[slot_1];
-	assign o_pulse_mask_2 = pulse_mask[slot_2];
-	assign o_pulse_mask_3 = pulse_mask[slot_3];
+	function [3:0] reverse_bit(input [3:0] bit);
+		reverse_bit = {bit[0], bit[1], bit[2], bit[3]};
+	endfunction
+	
+	assign o_pulse_mask_0 = reverse_bit(pulse_mask[slot_0]);
+	assign o_pulse_mask_1 = reverse_bit(pulse_mask[slot_1]);
+	assign o_pulse_mask_2 = reverse_bit(pulse_mask[slot_2]);
+	assign o_pulse_mask_3 = reverse_bit(pulse_mask[slot_3]);
 		
 	assign o_pulse_hit_0 = pulse_hit[slot_0];
 	assign o_pulse_hit_1 = pulse_hit[slot_1];

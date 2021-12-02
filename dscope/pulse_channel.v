@@ -75,7 +75,7 @@ module pulse_channel(
 			if(sync_pulse) begin
 				pulse_state <= |{i_pulse_count} ? PS_HITTING : PS_NONE;
 				pulse_count <= 4'd0;
-				znd_state <= ZS_HI;
+				znd_state <= |{i_pulse_count} ? ZS_HI : ZS_NONE;
 				znd_cntr <= 8'd0;
 				znd_len <= i_hit_len;
 				hush_cntr <= 16'd0;
