@@ -71,7 +71,9 @@ module control_param(
 	output						o_sync_enabled,
 	output						o_int_ext_sync,
 	output		[7:0]			o_wheel_add,
-	output		[7:0]			o_frame_dec
+	output		[7:0]			o_frame_dec,
+	
+	output		[2:0]			o_high_voltage
 );
 
 	assign o_cmd_rdy = 1'b1;
@@ -98,6 +100,8 @@ module control_param(
 	reg			[0:0]		int_ext_sync;
 	reg			[7:0]		wheel_add;
 	reg			[7:0]		frame_dec;
+	
+	reg			[2:0]		high_voltage;
 
 	reg		 	[5:0]		i;
 	
@@ -121,7 +125,8 @@ module control_param(
 							NCMD_ADC_RATIO = 4'd8,
 							NCMD_ADC_TICK = 4'd9,
 							NCMD_SLOT_TIME = 4'd10,
-							NCMD_ADC_DELAY = 4'd11;
+							NCMD_ADC_DELAY = 4'd11,
+							NCMD_HIGH_VOLTAGE = 4'd12;
 
 //	probe32 probe_u0(
 //		.probe(i_cmd_magic)
@@ -184,6 +189,8 @@ module control_param(
 			sync_enabled <= 1'b1;	// sync enabled
 			int_ext_sync <= 1'b1;	// external sync			
 			`endif
+			
+			high_voltage <= 3'b000;
 		end
 		else
 			if(i_cmd_vld && i_cmd_magic == 32'hF0AA550F) begin
@@ -207,6 +214,7 @@ module control_param(
 						NCMD_ADC_TICK: adc_tick[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
 						NCMD_SLOT_TIME: ts_time[cmd_slot] = i_cmd_command[15:0];
 						NCMD_ADC_DELAY: adc_delay[{cmd_ch, cmd_slot}] = i_cmd_command[7:0];
+						NCMD_HIGH_VOLTAGE: high_voltage = i_cmd_command[2:0];
 					endcase
 				end
 			end

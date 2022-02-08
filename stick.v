@@ -180,7 +180,7 @@ module stick(
 
 	//------------------------------------------------------------------------
 	
-	assign hpwon = 3'd1;
+	//assign hpwon = 3'd1;
 	
 	wire						sys_clk;
 	wire						hi_clk;
@@ -250,7 +250,9 @@ module stick(
 		.i_rx_eop(rx_eop),
 		.o_rx_rdy(rx_rdy),
 		
-		.o_led_cntr(led)
+		.o_led_cntr(led),
+		
+		.o_high_voltage(hpwon)
 	);
 	
 	//assign led[0] = adp;

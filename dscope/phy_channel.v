@@ -83,7 +83,7 @@ module phy_channel(
 		.i_adc_data(i_adc_data),
 		.i_ratio(i_ratio),
 		
-		.i_sync(i_sync),
+		.i_sync(i_slot_sync),
 		.o_out_vld(out_adc_vld),
 		.o_out_data(out_adc_data),
 		
@@ -120,18 +120,19 @@ module phy_channel(
 					adc_delay <= 8'd0;
 				end
 				else
-					if(wr_flag && out_adc_vld) begin
+					if(wr_flag) begin
 						if(adc_delay < i_adc_delay)
 							adc_delay <= adc_delay + 1'd1;
-						else begin
-							if(&{addr} || 9'd1 + addr >= i_data_len) begin
-								wr_flag <= 1'b0;
-								data_ready <= 1'b1;
-								data_count[{flip_half, i_wr_vchn}] <= addr + 1'd1;
+						else 
+							if(out_adc_vld)begin
+								if(&{addr} || 9'd1 + addr >= i_data_len) begin
+									wr_flag <= 1'b0;
+									data_ready <= 1'b1;
+									data_count[{flip_half, i_wr_vchn}] <= addr + 1'd1;
+								end
+								else
+									addr <= addr + 1'd1;
 							end
-							else
-								addr <= addr + 1'd1;
-						end
 					end
 						
 	ch_mem_buf ch_mem_buf_unit(

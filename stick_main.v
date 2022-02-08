@@ -50,7 +50,9 @@ module stick_main(
 	output						o_out_vld,
 	input						i_out_rdy,
 	
-	output		[3:0]			o_led_cntr
+	output		[3:0]			o_led_cntr,
+	
+	output		[2:0]			o_high_voltage
 );
 
 	wire		[31:0]			frame_data;
@@ -123,7 +125,9 @@ module stick_main(
 		.o_frame_ready(frame_ready),
 		.o_frame_size(frame_size),
 		
-		.o_led_cntr(o_led_cntr)
+		.o_led_cntr(o_led_cntr),
+		
+		.o_high_voltage(o_high_voltage)
 	);
 	
 	assign o_soffs_nx = {dac_cs_n, dac_cs_n, dac_cs_n, dac_cs_n};

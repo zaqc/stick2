@@ -54,7 +54,9 @@ module dscope_main(
 	input						i_cmd_vld,
 	output						o_cmd_rdy,
 	
-	output		[3:0]			o_led_cntr
+	output		[3:0]			o_led_cntr,
+	
+	output		[2:0]			o_high_voltage
 );
 
 	wire						adc_sync;
@@ -210,7 +212,9 @@ module dscope_main(
 		.o_int_ext_sync(int_ext_sync),
 		.o_in_sync_div(in_sync_div),
 		.o_wheel_add(wheel_add),
-		.o_frame_dec(frame_dec)
+		.o_frame_dec(frame_dec),
+		
+		.o_high_voltage(o_high_voltage)
 	);
 	
 	assign o_en_0x = 4'd8 >> adc_vchn_0;	// reverse virtual channels ADC pinout

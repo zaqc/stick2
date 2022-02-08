@@ -137,11 +137,11 @@ module eth_parser(
 				
 				// UDP Payload
 				5'd24: tmp_def_addr <= i_in_data;
-				5'd25: 
-					begin
-						tmp_def_data <= i_in_data;
-						vrc_addr <= 7'd0;
-					end
+				// 5'd25:
+				RS_UDP_VRCH_HDR: begin
+					tmp_def_data <= i_in_data;
+					vrc_addr <= 7'd0;
+				end
 				//5'd26: 
 				RS_FILL_VRCH: vrc_addr <= ~vrc_addr[6] ? vrc_addr + 1'd1 : vrc_addr;
 				
@@ -230,7 +230,8 @@ module eth_parser(
 						RS_UDP_PORT: recv_state <= (udp_src_port == 16'd14057 && udp_dst_port == 16'd17814) ? 5'd24 : 5'h1F;
 						
 						// 5'd25:
-						RS_UDP_VRCH_HDR: recv_state <= (tmp_def_addr == 32'hAA0FF055 && tmp_def_data[31:8] == 24'hACCA55) ? RS_FILL_VRCH /*5'd26*/ : RS_UDP_COMMAND /*5'h27*/;
+						//RS_UDP_VRCH_HDR: recv_state <= (tmp_def_addr == 32'hAA0FF055 && tmp_def_data[31:8] == 24'hACCA55) ? RS_FILL_VRCH /*5'd26*/ : RS_UDP_COMMAND /*5'h27*/;
+						RS_UDP_VRCH_HDR: recv_state <= (tmp_def_addr == 32'hAA0FF055 && i_in_data[31:8] == 24'hACCA55) ? RS_FILL_VRCH /*5'd26*/ : RS_UDP_COMMAND /*5'h27*/;
 						
 						default: // recv_state 5'd20 - receive ICMP Ping Payload
 							recv_state <= ~&{recv_state} 
